@@ -27,7 +27,7 @@ export const projects: Project[] = [
     meta: 'React · TypeScript · Tailwind CSS · Claude API · Vercel',
     status: 'Live',
     body: 'An AI mock-interview tool. You paste in a job description, answer five questions generated for that specific role, and get scored feedback on each response so you know exactly where to tighten up before the real thing.',
-    href: 'https://github.com/builtbyd3v',
+    href: 'https://aced-dev.vercel.app',
   },
 ]
 
