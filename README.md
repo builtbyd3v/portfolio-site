@@ -1,73 +1,68 @@
-# React + TypeScript + Vite
+# Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio website showcasing my projects, technical skills, education, and experience as a Software Engineering student at Western Governors University.
 
-Currently, two official plugins are available:
+## Live Site
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🌐 https://builtbyd3v.com
 
-## React Compiler
+## Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This portfolio serves as my central hub for sharing the projects I'm building, the technologies I'm learning, and my journey toward a career in software engineering.
 
-## Expanding the ESLint configuration
+The site highlights my work in full-stack development, AI engineering, and modern web technologies, and provides an easy way for recruiters, hiring managers, and fellow developers to learn more about me.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Responsive design for desktop and mobile devices
+- Project showcase with featured applications
+- Skills and technology stack overview
+- Education and coursework highlights
+- Direct links to GitHub, LinkedIn, and contact information
+- Clean, modern user interface inspired by developer portfolios
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Featured Projects
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Internship Launchpad
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+AI-powered internship tracking and career preparation platform that helps students organize applications, analyze job descriptions, identify skill gaps, and generate personalized interview preparation plans.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Tech:** React, Express.js, PostgreSQL, Claude API
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Aced
+
+AI-powered mock interview platform that generates role-specific interview questions from job descriptions and provides personalized feedback using the Claude API.
+
+**Tech:** React, TypeScript, Tailwind CSS, Claude API, Vercel Serverless Functions
+
+## Tech Stack
+
+### Frontend
+
+- React
+- TypeScript
+- Tailwind CSS
+- Vite
+
+### Tools
+
+- Git
+- GitHub
+- Vercel
+- Claude Code
+- Cursor
+
+## About Me
+
+I'm a Software Engineering student at Western Governors University with interests in full-stack development, AI engineering, and building products that solve real-world problems.
+
+## Contact
+
+- Portfolio: https://builtbyd3v.com
+- LinkedIn: https://linkedin.com/in/builtbydev
+- GitHub: https://github.com/BuiltByD3V
+- Email: contact@builtbyd3v.com
+
+---
+
+Built by Dev Goswami in collaboration with Claude Code. Developed with React, TypeScript, and modern web development tools.
