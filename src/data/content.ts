@@ -16,11 +16,11 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: 'Internship Launchpad AI',
-    meta: 'React · Express.js · PostgreSQL · Claude API',
-    status: 'In progress',
-    body: 'A full-stack tracker for the internship hunt. It keeps applications organized, reads job descriptions to surface the skills they actually want, flags the gaps in your own profile, and drafts a prep plan to close them.',
-    href: 'https://github.com/builtbyd3v',
+    title: 'samehere',
+    meta: 'Next.js · TypeScript · Tailwind CSS · Claude API · Supabase',
+    status: 'In Progress',
+    body: 'A verified, .edu-gated networking platform for engineering students. Uses Claude API to match students with peers at their level, with a social feed and student profiles.',
+    href: 'https://github.com/builtbyd3v/samehere',
   },
   {
     title: 'Aced',
@@ -28,6 +28,13 @@ export const projects: Project[] = [
     status: 'Live',
     body: 'An AI mock-interview tool. You paste in a job description, answer five questions generated for that specific role, and get scored feedback on each response so you know exactly where to tighten up before the real thing.',
     href: 'https://aced-dev.vercel.app',
+  },
+  {
+    title: 'Internship Launchpad',
+    meta: 'React · Express.js · PostgreSQL · Claude API',
+    status: 'Live',
+    body: 'A full-stack internship tracker built with Claude Code as the primary dev tool. It manages applications end-to-end and uses Claude to turn job descriptions into personalized skill gap analysis and mock interview questions, with Supabase handling auth and data.',
+    href: 'https://internship-launchpad-p1i8.vercel.app',
   },
 ]
 
