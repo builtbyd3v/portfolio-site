@@ -17,24 +17,17 @@ export type Project = {
 export const projects: Project[] = [
   {
     title: 'samehere',
-    meta: 'Next.js · TypeScript · Tailwind CSS · Claude API · Supabase',
-    status: 'In Progress',
-    body: 'A verified, .edu-gated networking platform for engineering students. Uses Claude API to match students with peers at their level, with a social feed and student profiles.',
-    href: 'https://github.com/builtbyd3v/samehere',
+    meta: 'Next.js · React · TypeScript · Tailwind CSS · Supabase · Claude (OpenAI SDK) · Vercel',
+    status: 'Live',
+    body: 'Student social app with .edu verification. Claude suggests peers from profile overlap (OpenAI SDK on the server). Feed, profiles, DMs, follows, activity heatmap. Live on Vercel.',
+    href: 'https://samehere.dev',
   },
   {
     title: 'Aced',
     meta: 'React · TypeScript · Tailwind CSS · Claude API · Vercel',
     status: 'Live',
-    body: 'An AI mock-interview tool. You paste in a job description, answer five questions generated for that specific role, and get scored feedback on each response so you know exactly where to tighten up before the real thing.',
+    body: 'Mock interviews from a job description. Paste the JD, answer five questions for that role, get scored feedback on each answer.',
     href: 'https://aced-dev.vercel.app',
-  },
-  {
-    title: 'Internship Launchpad',
-    meta: 'React · Express.js · PostgreSQL · Claude API',
-    status: 'Live',
-    body: 'A full-stack internship tracker built with Claude Code as the primary dev tool. It manages applications end-to-end and uses Claude to turn job descriptions into personalized skill gap analysis and mock interview questions, with Supabase handling auth and data.',
-    href: 'https://internship-launchpad-p1i8.vercel.app',
   },
 ]
 
@@ -49,8 +42,8 @@ export const experience: Experience[] = [
   {
     role: 'Service Leader',
     org: 'Chipotle Mexican Grill',
-    period: '2021 — 2026',
-    body: 'Optimized high-volume shift performance, increasing throughput 20% and reducing waste 15%, by leading and training crew on food-safety, cash/inventory controls, and customer-resolution procedures.',
+    period: '2021-2026',
+    body: 'Ran high-volume shifts and trained crew on food safety, cash handling, and inventory. Throughput up ~20%, waste down ~15%.',
   },
 ]
 
@@ -65,20 +58,20 @@ export const education: Education[] = [
   {
     org: 'Western Governors University',
     detail: 'B.S. Software Engineering · 4.0 GPA',
-    period: 'Oct 2025 — Apr 2027',
-    body: 'Competency-based degree covering software design, data structures, and full-stack engineering.',
+    period: 'Oct 2025-Apr 2027',
+    body: 'Competency-based B.S. Covers software design, data structures, and full-stack engineering. You move forward by passing assessments, not by semester schedule.',
   },
   {
     org: 'CodePath',
     detail: 'Software Engineering Bootcamp',
-    period: 'Jun 2026 — Aug 2026',
-    body: 'Three concurrent tracks: advanced full-stack web (Node.js, Express, PostgreSQL, REST, auth, deployment), AI engineering foundations (AI-assisted development, debugging, and code evaluation), and technical interview prep (Python, data structures, algorithms, and OOP).',
+    period: 'Jun 2026-Aug 2026',
+    body: 'Three tracks running in parallel: full-stack web (Node.js, Express, PostgreSQL, REST, auth, deployment), AI engineering (building and debugging with LLM tools), and interview prep (Python, data structures, algorithms, OOP).',
   },
   {
     org: 'Scrimba',
     detail: 'Frontend Developer Path',
-    period: 'Sep 2025 — Apr 2026',
-    body: 'Mozilla MDN-curated curriculum across HTML, CSS, JavaScript, and React. Shipped 12+ projects and worked through hundreds of coding challenges.',
+    period: 'Sep 2025-Apr 2026',
+    body: 'MDN-based path through HTML, CSS, JavaScript, and React. Shipped 12+ projects and worked through many coding exercises along the way.',
   },
 ]
 
@@ -103,6 +96,7 @@ export const skills: SkillGroup[] = [
     label: 'Frontend',
     items: [
       { name: 'React', slug: 'react', color: '61DAFB' },
+      { name: 'Next.js', slug: 'nextdotjs', color: '000000' },
       { name: 'Tailwind CSS', slug: 'tailwindcss', color: '06B6D4' },
     ],
   },
