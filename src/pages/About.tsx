@@ -7,13 +7,13 @@ export default function About() {
 
       <p className="mt-8 max-w-[520px] text-[15px] leading-relaxed text-soft">
         I'm a Software Engineering student at Western Governors University. I
-        build full-stack, AI-integrated web apps.
+        build full-stack web apps, sometimes with AI in the loop when the
+        project needs it.
       </p>
 
       <p className="mt-6 max-w-[520px] text-[15px] leading-relaxed text-soft">
-        I work mostly in Next.js, TypeScript, Tailwind, and PostgreSQL. I'm
-        enrolled in CodePath, use AI-assisted development in my workflow, and
-        I'm actively building samehere.
+        I work mostly in Next.js, TypeScript, Tailwind, and PostgreSQL. I'm in
+        CodePath's bootcamp right now while shipping samehere and Aced.
       </p>
 
       <p className="mt-6 max-w-[520px] text-[15px] leading-relaxed text-soft">
