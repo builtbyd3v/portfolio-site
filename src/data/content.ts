@@ -1,5 +1,5 @@
 export const CONTACT = {
-  email: 'devgirigoswami8@gmail.com',
+  email: 'contact@builtbyd3v.com',
   github: 'https://github.com/builtbyd3v',
   x: 'https://x.com/builtbydev',
   linkedin: 'https://www.linkedin.com/in/builtbydev',
@@ -12,6 +12,10 @@ export type Project = {
   status: string
   body: string
   href: string
+  /** Preview image URL. When absent, the card renders a generated cover. */
+  image?: string
+  /** Short label shown on the generated cover when there is no image. */
+  tagline?: string
 }
 
 export const projects: Project[] = [
@@ -21,6 +25,7 @@ export const projects: Project[] = [
     status: 'Live',
     body: 'Student social app with .edu verification. Claude suggests peers from profile overlap (OpenAI SDK on the server). Feed, profiles, DMs, follows, activity heatmap. Live on Vercel.',
     href: 'https://samehere.dev',
+    image: '/projects/samehere.png',
   },
   {
     title: 'Aced',
@@ -28,6 +33,7 @@ export const projects: Project[] = [
     status: 'Live',
     body: 'Mock interviews from a job description. Paste the JD, answer five questions for that role, get scored feedback on each answer.',
     href: 'https://aced-dev.vercel.app',
+    image: '/projects/aced.png',
   },
 ]
 

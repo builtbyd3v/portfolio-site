@@ -1,14 +1,28 @@
+/* Hallmark · macrostructure: Long Document · tone: editorial-warm · anchor hue: neutral (sky accent, restrained)
+ * pre-emit critique: P5 H4 E4 S4 R5 V4
+ * Design system: DESIGN.md (Lovable-inspired warm cream). Charcoal-derived opacity grays,
+ * #eceae4 borders instead of shadows, single sky accent kept from the original palette. */
 @import 'tailwindcss';
 
 @theme {
+  --font-display:
+    'Bricolage Grotesque', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
   --font-sans:
-    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica,
-    Arial, sans-serif;
+    'Hanken Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    Helvetica, Arial, sans-serif;
 
-  --color-ink: #111111;
-  --color-soft: #555555;
-  --color-faint: #999999;
-  --color-line: #ececec;
+  /* Warm cream foundation + charcoal-derived tonal range. */
+  --color-cream: #f7f4ed;
+  --color-offwhite: #fcfbf8;
+  --color-ink: #1c1c1c;
+  --color-body: rgba(28, 28, 28, 0.82);
+  --color-muted: #5f5f5d;
+  --color-line: #eceae4;
+  --color-line-strong: rgba(28, 28, 28, 0.4);
+  --color-tint: rgba(28, 28, 28, 0.04);
+
+  /* The single accent, carried over from the original palette. Used sparingly. */
   --color-accent: #0ea5e9;
 }
 
@@ -18,15 +32,127 @@ html {
 
 body {
   margin: 0;
-  background: #ffffff;
+  background: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Barely-visible paper grain over the whole page for an analog, made feel. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Static warm wash behind the hero, with a slow ambient drift. */
+.hero-wash {
+  background:
+    radial-gradient(620px circle at 22% 20%, rgba(244, 164, 96, 0.2), transparent 55%),
+    radial-gradient(560px circle at 86% 14%, rgba(236, 128, 160, 0.14), transparent 55%),
+    radial-gradient(760px circle at 55% 98%, rgba(14, 165, 233, 0.09), transparent 55%);
+}
+@keyframes wash-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.02);
+  }
+  50% {
+    transform: translate3d(1.6%, -1.2%, 0) scale(1.06);
+  }
+}
+.wash-drift {
+  animation: wash-drift 20s ease-in-out infinite;
+}
+
+/* Editorial line reveal: each headline line rises out from a clipped mask. */
+@keyframes line-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.line-inner {
+  display: block;
+  animation: line-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Generic fade-and-rise for the supporting hero copy. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Accent underline that grows in after the headline settles. */
+@keyframes underline-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.underline-grow {
+  transform-origin: left;
+  animation: underline-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both;
+}
+
+/* Staggered animation delays. */
+.d-1 {
+  animation-delay: 0.08s;
+}
+.d-2 {
+  animation-delay: 0.2s;
+}
+.d-3 {
+  animation-delay: 0.34s;
+}
+.d-4 {
+  animation-delay: 0.48s;
+}
+.d-5 {
+  animation-delay: 0.62s;
+}
+
+/* Signature inset-shadow on dark buttons (DESIGN.md §6). */
+.btn-dark {
+  box-shadow:
+    rgba(255, 255, 255, 0.2) 0px 0.5px 0px 0px inset,
+    rgba(0, 0, 0, 0.2) 0px 0px 0px 0.5px inset,
+    rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+}
+
+:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
+  outline-offset: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .line-inner,
+  .fade-up,
+  .underline-grow,
+  .wash-drift {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
