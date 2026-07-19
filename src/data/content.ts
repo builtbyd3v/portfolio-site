@@ -3,7 +3,7 @@ export const CONTACT = {
   github: 'https://github.com/builtbyd3v',
   x: 'https://x.com/builtbydev',
   linkedin: 'https://www.linkedin.com/in/builtbydev',
-  resume: '/resume.pdf',
+  resume: '/resume-standard.pdf',
 }
 
 export type Project = {
