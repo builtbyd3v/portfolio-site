@@ -48,7 +48,7 @@ export const experience: Experience[] = [
   {
     role: 'Service Leader',
     org: 'Chipotle Mexican Grill',
-    period: '2021-2026',
+    period: '2021-Present',
     body: 'Ran high-volume shifts and trained crew on food safety, cash handling, and inventory. Throughput up ~20%, waste down ~15%.',
   },
 ]
@@ -64,7 +64,7 @@ export const education: Education[] = [
   {
     org: 'Western Governors University',
     detail: 'B.S. Software Engineering · 4.0 GPA',
-    period: 'Oct 2025-Apr 2027',
+    period: 'Oct 2025-Oct 2027',
     body: 'Competency-based B.S. Covers software design, data structures, and full-stack engineering. You move forward by passing assessments, not by semester schedule.',
   },
   {
