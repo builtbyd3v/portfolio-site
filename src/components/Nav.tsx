@@ -1,16 +1,54 @@
 import { useEffect, useState } from 'react'
 import { CONTACT } from '../data/content'
 import BrandLink from './BrandLink'
+import {
+  GitHubIcon,
+  XIcon,
+  LinkedInIcon,
+  ResumeIcon,
+  MailIcon,
+} from '../icons'
 
 const LINKS = [
-  { href: '#work', label: 'Work' },
+  { href: '#work', label: 'Projects' },
   { href: '#education', label: 'Education' },
   { href: '#skills', label: 'Skills' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#contact', label: 'Contact' },
 ]
 
 const SECTION_IDS = LINKS.map((l) => l.href.slice(1))
+
+const ACTIONS = [
+  {
+    href: CONTACT.resume,
+    label: 'Resume',
+    Icon: ResumeIcon,
+    external: true,
+  },
+  {
+    href: `mailto:${CONTACT.email}`,
+    label: 'Email',
+    Icon: MailIcon,
+    external: false,
+  },
+  {
+    href: CONTACT.github,
+    label: 'GitHub',
+    Icon: GitHubIcon,
+    external: true,
+  },
+  {
+    href: CONTACT.x,
+    label: 'X',
+    Icon: XIcon,
+    external: true,
+  },
+  {
+    href: CONTACT.linkedin,
+    label: 'LinkedIn',
+    Icon: LinkedInIcon,
+    external: true,
+  },
+] as const
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -25,10 +63,6 @@ export default function Nav() {
         const el = document.getElementById(id)
         if (el && el.getBoundingClientRect().top <= line) current = id
       }
-      const atBottom =
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 2
-      if (atBottom) current = SECTION_IDS[SECTION_IDS.length - 1]
       setActive(current)
     }
     onScroll()
@@ -56,14 +90,20 @@ export default function Nav() {
           })}
         </nav>
 
-        <a
-          href={CONTACT.resume}
-          target="_blank"
-          rel="noreferrer"
-          className="btn-primary"
-        >
-          Resume
-        </a>
+        <div className="site-nav-actions" aria-label="Contact and profiles">
+          {ACTIONS.map(({ href, label, Icon, external }) => (
+            <a
+              key={label}
+              href={href}
+              aria-label={label}
+              {...(external
+                ? { target: '_blank', rel: 'noreferrer' }
+                : {})}
+            >
+              <Icon className="site-nav-action-icon" />
+            </a>
+          ))}
+        </div>
       </div>
     </header>
   )
