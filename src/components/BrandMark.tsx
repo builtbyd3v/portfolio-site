@@ -5,13 +5,13 @@ type MarkProps = {
 }
 
 /**
- * Locked interlocking DG mark from public/brand-drafts.
+ * Geometric interlocking DG mark from public/brand-drafts.
  * animate fades/scales the mark in after the wordmark contracts.
  */
 export default function BrandMark({ className = '', animate = true }: MarkProps) {
   return (
     <img
-      src="/brand-drafts/logo-dg-locked.png"
+      src="/brand-drafts/logo-dg-geometric.png"
       alt=""
       width={32}
       height={32}
