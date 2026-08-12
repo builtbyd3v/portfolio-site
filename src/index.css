@@ -143,19 +143,27 @@ h3 {
 
 .site-nav-shell {
   margin-inline: auto;
-  display: flex;
+  display: grid;
   width: 100%;
   max-width: 1120px;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
   padding: 0.875rem 1.5rem;
 }
 
+.site-nav-shell > .brand-link {
+  grid-column: 1;
+  justify-self: start;
+}
+
 .site-nav-links {
   display: none;
+  grid-column: 2;
   align-items: center;
+  justify-content: center;
   gap: 0.25rem;
+  justify-self: center;
 }
 
 @media (min-width: 768px) {
@@ -185,8 +193,11 @@ h3 {
 
 .site-nav-actions {
   display: flex;
+  grid-column: 3;
   flex-shrink: 0;
   align-items: center;
+  justify-content: flex-end;
+  justify-self: end;
   gap: 0.15rem;
 }
 
