@@ -254,10 +254,13 @@ h3 {
   animation: brand-mark-in 1500ms var(--ease-out) both;
 }
 
-.brand-mark-svg {
+.brand-mark-svg,
+.brand-mark-img {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  border-radius: 0.45rem;
 }
 
 .brand-mark-group {
@@ -276,6 +279,24 @@ h3 {
   from {
     opacity: 0;
     transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .brand-mark-accent {
+    animation: brand-accent-in 420ms var(--ease-out) 1.25s both;
+  }
+}
+
+@keyframes brand-accent-in {
+  from {
+    opacity: 0;
+    transform: scaleX(0.4);
+    transform-origin: left center;
   }
   to {
     opacity: 1;
