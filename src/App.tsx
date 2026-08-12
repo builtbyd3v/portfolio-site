@@ -1,6 +1,7 @@
 import { experience, education, skills } from './data/content'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
+import Workbench from './components/Workbench'
 import Footer from './components/Footer'
 import Reveal from './components/Reveal'
 import ProofCard from './components/ProofCard'
@@ -23,6 +24,10 @@ function App() {
       <span id="top" />
       <main>
         <Hero />
+
+        <div className="section-shell section-shell-work">
+          <Workbench />
+        </div>
 
         <div className="section-shell">
           <section id="education" className="section-block">
@@ -56,7 +61,11 @@ function App() {
                     <p className="skill-panel-label">{group.label}</p>
                     <div className="skill-panel-items">
                       {group.items.map((item) => (
-                        <SkillBadge key={item.name} skill={item} />
+                        <SkillBadge
+                          key={item.name}
+                          skill={item}
+                          showIcon={group.label !== 'Concepts'}
+                        />
                       ))}
                     </div>
                   </div>

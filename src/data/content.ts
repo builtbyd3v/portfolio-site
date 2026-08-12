@@ -30,7 +30,7 @@ export const projects: Project[] = [
   {
     title: 'Aced',
     meta: 'React · TypeScript · Tailwind CSS · Claude API · Vercel',
-    status: 'Live',
+    status: 'Shipped',
     body: 'Mock interviews from a job description. Paste the JD, answer five questions for that role, get scored feedback on each answer.',
     href: 'https://aced-dev.vercel.app',
     image: '/projects/aced.png',
@@ -136,8 +136,8 @@ export const skills: SkillGroup[] = [
     items: [
       { name: 'Data Structures & Algorithms' },
       { name: 'OOP' },
-      { name: 'Authentication', slug: 'auth0', color: 'EB5424' },
-      { name: 'AI-Assisted Development', slug: 'anthropic', color: 'FFFFFF' },
+      { name: 'Authentication' },
+      { name: 'AI-Assisted Development' },
     ],
   },
 ]

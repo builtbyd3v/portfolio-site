@@ -8,12 +8,19 @@ function iconColor(color?: string): string {
   return hex
 }
 
-export default function SkillBadge({ skill }: { skill: Skill }) {
+export default function SkillBadge({
+  skill,
+  showIcon = true,
+}: {
+  skill: Skill
+  showIcon?: boolean
+}) {
   const color = iconColor(skill.color)
+  const withIcon = showIcon && Boolean(skill.slug)
 
   return (
-    <span className="skill-badge">
-      {skill.slug ? (
+    <span className={`skill-badge${withIcon ? '' : ' skill-badge-text'}`}>
+      {withIcon && (
         <img
           src={`https://cdn.simpleicons.org/${skill.slug}/${color}`}
           alt=""
@@ -23,10 +30,6 @@ export default function SkillBadge({ skill }: { skill: Skill }) {
             e.currentTarget.style.display = 'none'
           }}
         />
-      ) : (
-        <span className="skill-badge-fallback" aria-hidden>
-          ◆
-        </span>
       )}
       <span>{skill.name}</span>
     </span>

@@ -24,19 +24,11 @@ export default function Workbench({ compact = false }: { compact?: boolean }) {
       className={`workbench${compact ? ' workbench-compact' : ''}`}
       aria-label="Selected work"
     >
-      {!compact && (
-        <Reveal className="workbench-intro">
-          <h2>Selected work</h2>
-          <p>Two products I designed, built, and shipped to production.</p>
-        </Reveal>
-      )}
-
-      {compact && (
-        <div className="workbench-intro workbench-intro-compact">
-          <p className="workbench-kicker">Selected work</p>
-          <h2>Live products, not mockups.</h2>
-        </div>
-      )}
+      <Reveal className="workbench-intro">
+        <p className="workbench-kicker">Selected work</p>
+        <h2>Live products, not mockups.</h2>
+        <p>samehere is the active build. Aced is a shipped interview trainer.</p>
+      </Reveal>
 
       <Reveal delayIndex={0} className="workbench-now">
         <div className="workbench-now-panel" aria-label="Right now">
@@ -45,20 +37,20 @@ export default function Workbench({ compact = false }: { compact?: boolean }) {
               <span aria-hidden className="workbench-stage-dot workbench-stage-dot-live" />
               Right now
             </span>
-            <h3>Open to internships and early-career SWE roles.</h3>
+            <h3>Focused on samehere. Open to internships.</h3>
             <p>
-              Shipping samehere and Aced while finishing a B.S. in Software
-              Engineering at WGU.
+              Actively building and iterating samehere while finishing a B.S. in
+              Software Engineering at WGU.
             </p>
           </div>
           <div className="workbench-now-facts">
             <div className="workbench-status-row">
-              <strong>Degree</strong>
-              <span>B.S. Software Engineering · WGU</span>
+              <strong>Building</strong>
+              <span>samehere</span>
             </div>
             <div className="workbench-status-row">
-              <strong>Focus</strong>
-              <span>samehere · Aced · interview prep</span>
+              <strong>Degree</strong>
+              <span>B.S. Software Engineering · WGU</span>
             </div>
             <div className="workbench-status-row is-accent">
               <strong>Open to</strong>
@@ -79,13 +71,13 @@ export default function Workbench({ compact = false }: { compact?: boolean }) {
             href={samehere.href}
             target="_blank"
             rel="noreferrer"
-            className="workbench-panel h-full"
+            className="workbench-panel workbench-panel-featured h-full"
           >
             <header className="workbench-panel-header">
               <div>
                 <span className="workbench-stage-mark">
-                  <span aria-hidden className="workbench-stage-dot" />
-                  Product
+                  <span aria-hidden className="workbench-stage-dot workbench-stage-dot-live" />
+                  Active
                 </span>
                 <h3>{samehere.title}</h3>
               </div>
@@ -126,11 +118,11 @@ export default function Workbench({ compact = false }: { compact?: boolean }) {
               <div>
                 <span className="workbench-stage-mark">
                   <span aria-hidden className="workbench-stage-dot" />
-                  Product
+                  Shipped
                 </span>
                 <h3>{aced.title}</h3>
               </div>
-              <span className="workbench-panel-meta">{aced.status}</span>
+              <span className="workbench-panel-meta">Live</span>
             </header>
             {aced.image && (
               <div className="workbench-panel-media">

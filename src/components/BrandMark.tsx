@@ -4,7 +4,10 @@ type MarkProps = {
   animate?: boolean
 }
 
-/** DG monogram — geometric D with nested G and blue arc accent. */
+/**
+ * Interlocking DG monogram from the locked draft:
+ * thick blocky D with a nested G in the open right.
+ */
 export default function BrandMark({ className = '', animate = true }: MarkProps) {
   return (
     <svg
@@ -13,31 +16,33 @@ export default function BrandMark({ className = '', animate = true }: MarkProps)
       className={className}
       aria-hidden="true"
     >
-      <rect width="32" height="32" rx="8" fill="#1a1a1a" />
-      <path
-        className={animate ? 'brand-mark-stroke' : undefined}
-        d="M9 8.5h7.2c4.7 0 7.8 2.9 7.8 7.5s-3.1 7.5-7.8 7.5H9V8.5Z"
-        stroke="#ffffff"
-        strokeWidth="2.2"
-        strokeLinejoin="round"
-        pathLength="1"
+      <rect
+        x="0.75"
+        y="0.75"
+        width="30.5"
+        height="30.5"
+        rx="7"
+        fill="#0a0a0a"
+        stroke="rgba(255,255,255,0.16)"
+        strokeWidth="1.5"
       />
-      <path
-        className={animate ? 'brand-mark-stroke brand-mark-stroke-delay' : undefined}
-        d="M14.2 13.2h3.1c1.85 0 3 1.1 3 2.8s-1.15 2.8-3 2.8h-3.1v-5.6Z"
-        stroke="#ffffff"
-        strokeWidth="1.7"
-        strokeLinejoin="round"
-        pathLength="1"
-      />
-      <path
-        className={animate ? 'brand-mark-arc' : undefined}
-        d="M22.5 9.2a9.2 9.2 0 0 1 0 13.6"
-        stroke="#0075de"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        pathLength="1"
-      />
+      <g className={animate ? 'brand-mark-group' : undefined}>
+        {/* D bowl */}
+        <path
+          fill="#ffffff"
+          d="M8 7.4h9.6c4.55 0 7.45 2.7 7.45 6.9v3.4c0 4.2-2.9 6.9-7.45 6.9H8V7.4Z"
+        />
+        {/* D counter */}
+        <path
+          fill="#0a0a0a"
+          d="M11.4 10.7v10.6h6.1c2.55 0 4.05-1.4 4.05-3.9v-2.8c0-2.5-1.5-3.9-4.05-3.9H11.4Z"
+        />
+        {/* Nested G */}
+        <path
+          fill="#ffffff"
+          d="M19.15 12.55c1.2 0 1.95.7 1.95 1.85v.35h-4.15v-1.05c0-.75.65-1.15 2.2-1.15Zm-4.95 3.55h6.85v2.35h-2.35l.85 2.15h-2.4l-.75-1.85h-2.2v-2.65Z"
+        />
+      </g>
     </svg>
   )
 }

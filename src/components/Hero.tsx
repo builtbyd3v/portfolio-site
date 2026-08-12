@@ -4,7 +4,6 @@ import {
   type CSSProperties,
 } from 'react'
 import { CONTACT } from '../data/content'
-import Workbench from './Workbench'
 
 const LINE_ONE = ['Building', 'things'] as const
 const LINE_TWO = ['people', 'actually', 'use.'] as const
@@ -77,8 +76,8 @@ export default function Hero() {
         </h1>
 
         <p className="hero-subhead">
-          Full-stack products with Next.js, TypeScript, and PostgreSQL — shipped
-          live, sometimes with AI in the loop.
+          Software engineering student shipping samehere — a live student
+          network built with Next.js, TypeScript, and Supabase.
         </p>
 
         <div className="hero-actions">
@@ -100,9 +99,10 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="hero-workbench">
-        <Workbench compact />
-      </div>
+      <a href="#work" className="hero-scroll" aria-label="Scroll to work">
+        <span>Scroll</span>
+        <span className="hero-scroll-line" aria-hidden />
+      </a>
     </section>
   )
 }

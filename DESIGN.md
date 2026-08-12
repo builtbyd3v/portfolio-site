@@ -31,16 +31,20 @@ atmospheric
 
 ## Typography
 
-- Display / body: Figtree, weight 400–600 (samehere / x.ai stand-in for Universal Sans)
-- Brand wordmark: Fraunces, weight 600
+- Display / body / brand wordmark: Figtree, weight 400–600
 - Display tracking: about `-0.025em` on hero
 - Hero size: `clamp(2.75rem, 4.4vw, 3.5rem)` for short centered statements
 
 ## Brand mark
 
-- DG monogram: nested D/G stroke with blue arc accent
-- Nav: Fraunces wordmark draws in, then contracts to the DG mark
-- Favicon: animated blue arc on `/favicon.svg`
+- DG interlocking monogram: blocky D with nested G (locked draft)
+- Nav: Figtree wordmark draws in, then contracts to the DG mark
+- Favicon: `/favicon.svg` matching the mark
+
+## Hero
+
+- First viewport is hero-only (announcement, headline, subhead, CTAs, scroll cue)
+- Workbench and proof sections begin below with intentional vertical gap
 ## Spacing
 
 4-point named scale in `src/index.css` / Tailwind `@theme`. Prefer semantic

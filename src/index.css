@@ -2,7 +2,7 @@
  * theme: studied-DNA (source: https://x.ai/) · studied: yes
  * nav: N1b SaaS three-section · footer: compact dark rule
  * canvas: #0a0a0a · surface: #1a1a1a · accent: #0075de
- * display/body: Figtree · brand wordmark: Fraunces
+ * display/body/brand: Figtree
  * pre-emit critique: P5 H5 E5 S5 R5 V4
  * Design system: DESIGN.md */
 @import 'tailwindcss';
@@ -14,7 +14,7 @@
     'Figtree', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica,
     Arial, sans-serif;
   --font-brand:
-    'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
+    'Figtree', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --color-canvas: #0a0a0a;
   --color-surface: #1a1a1a;
@@ -260,29 +260,26 @@ h3 {
   height: 100%;
 }
 
-.brand-mark-stroke,
-.brand-mark-arc {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+.brand-mark-group {
+  opacity: 0;
+  transform: scale(0.92);
+  transform-origin: center;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .brand-mark-stroke {
-    animation: brand-draw 700ms var(--ease-out) 1.05s both;
-  }
-
-  .brand-mark-stroke-delay {
-    animation-delay: 1.18s;
-  }
-
-  .brand-mark-arc {
-    animation: brand-draw 650ms var(--ease-out) 1.32s both;
+  .brand-mark-group {
+    animation: brand-mark-pop 480ms var(--ease-out) 1.05s both;
   }
 }
 
-@keyframes brand-draw {
+@keyframes brand-mark-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
   to {
-    stroke-dashoffset: 0;
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -341,11 +338,13 @@ h3 {
 .hero {
   position: relative;
   display: flex;
+  min-height: 100svh;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
+  justify-content: center;
   overflow: clip;
-  padding: clamp(7.5rem, 12vh, 8.75rem) clamp(1rem, 4vw, 1.5rem)
-    clamp(2rem, 4vh, 2.75rem);
+  padding: clamp(6.5rem, 12vh, 8rem) clamp(1rem, 4vw, 1.5rem)
+    clamp(4.5rem, 8vh, 6rem);
   text-align: center;
 }
 
@@ -353,7 +352,7 @@ h3 {
   margin-inline: auto;
   display: flex;
   width: 100%;
-  max-width: 54rem;
+  max-width: 46rem;
   flex-direction: column;
   align-items: center;
 }
@@ -434,10 +433,41 @@ h3 {
   gap: 0.75rem;
 }
 
+.hero-scroll {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--color-muted);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  transition: color 150ms ease, opacity 150ms ease;
+}
+
+.hero-scroll:hover {
+  color: var(--color-ink);
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 2rem;
+  background: linear-gradient(to bottom, var(--color-line-strong), transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-scroll {
+    animation: hero-item-in 380ms cubic-bezier(0.22, 1, 0.36, 1) 860ms both;
+  }
+}
+
 .hero-workbench {
-  margin-top: clamp(2rem, 4vh, 2.75rem);
-  width: 100%;
-  opacity: 0;
+  display: none;
 }
 
 @keyframes hero-word-in {
@@ -473,15 +503,6 @@ h3 {
   }
 }
 
-@keyframes hero-workbench-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .hero-word {
     animation: hero-word-in 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -507,10 +528,6 @@ h3 {
   .hero-action-secondary {
     animation-delay: 730ms;
   }
-
-  .hero-workbench {
-    animation: hero-workbench-in 1250ms cubic-bezier(0.22, 1, 0.36, 1) 760ms both;
-  }
 }
 
 .hero-skip-intro
@@ -519,7 +536,7 @@ h3 {
     .hero-announcement,
     .hero-subhead,
     .hero-action,
-    .hero-workbench
+    .hero-scroll
   ) {
   animation: none;
   opacity: 1;
@@ -527,11 +544,15 @@ h3 {
 }
 
 /* —— Workbench mosaic —— */
+.section-shell-work {
+  padding-top: clamp(2.5rem, 6vh, 4.5rem);
+}
+
 .workbench {
   margin-inline: auto;
   width: 100%;
   max-width: 1120px;
-  padding: 0;
+  padding: 0 0 1rem;
   scroll-margin-top: 6rem;
   text-align: left;
 }
@@ -541,14 +562,27 @@ h3 {
 }
 
 .workbench-intro {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   max-width: 42rem;
 }
 
-.workbench-intro-compact {
-  margin-inline: auto;
-  margin-bottom: 1.25rem;
-  text-align: center;
+.workbench-intro .workbench-kicker {
+  margin: 0 0 0.45rem;
+}
+
+.workbench-intro h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.workbench-intro > p:not(.workbench-kicker) {
+  margin: 0.55rem 0 0;
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .workbench-kicker {
@@ -558,21 +592,6 @@ h3 {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-muted);
-}
-
-.workbench-intro h2 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
-  font-weight: 500;
-  letter-spacing: -0.025em;
-}
-
-.workbench-intro p {
-  margin: 0.5rem 0 0;
-  color: var(--color-muted);
-  font-size: 14px;
-  line-height: 1.5;
 }
 
 .workbench-grid {
@@ -686,6 +705,13 @@ a.workbench-panel:hover {
   border-color: var(--color-line-strong);
   background: var(--color-surface-raised);
   transform: translateY(-2px);
+}
+
+.workbench-panel-featured {
+  border-color: rgba(0, 117, 222, 0.28);
+  background:
+    radial-gradient(520px circle at 0% 0%, rgba(0, 117, 222, 0.12), transparent 55%),
+    var(--color-surface);
 }
 
 .workbench-panel-header {
@@ -919,19 +945,14 @@ a.workbench-panel:hover .workbench-panel-media img {
   color: var(--color-body);
 }
 
+.skill-badge-text {
+  padding: 0.4rem 0.75rem;
+}
+
 .skill-badge-icon {
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;
-}
-
-.skill-badge-fallback {
-  display: grid;
-  width: 1rem;
-  height: 1rem;
-  place-items: center;
-  font-size: 0.55rem;
-  color: var(--color-accent-strong);
 }
 
 .proof-grid {
@@ -1092,10 +1113,9 @@ a.workbench-panel:hover .workbench-panel-media img {
     animation: none;
   }
 
-  .brand-mark-stroke,
-  .brand-mark-arc {
-    stroke-dasharray: none;
-    stroke-dashoffset: 0;
+  .brand-mark-group {
+    opacity: 1;
+    transform: none;
     animation: none;
   }
 
@@ -1103,7 +1123,7 @@ a.workbench-panel:hover .workbench-panel-media img {
   .hero-announcement,
   .hero-subhead,
   .hero-action,
-  .hero-workbench {
+  .hero-scroll {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
