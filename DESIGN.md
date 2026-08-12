@@ -31,11 +31,16 @@ atmospheric
 
 ## Typography
 
-- Display: Bricolage Grotesque, weight 500–600, roman, tight tracking at display sizes
-- Body: Hanken Grotesk, weight 400–500
-- Display tracking: about `-0.03em` to `-0.04em` on hero
-- Hero size: `clamp(2.75rem, 7vw, 3.75rem)` for short centered statements
+- Display / body: Figtree, weight 400–600 (samehere / x.ai stand-in for Universal Sans)
+- Brand wordmark: Fraunces, weight 600
+- Display tracking: about `-0.025em` on hero
+- Hero size: `clamp(2.75rem, 4.4vw, 3.5rem)` for short centered statements
 
+## Brand mark
+
+- DG monogram: nested D/G stroke with blue arc accent
+- Nav: Fraunces wordmark draws in, then contracts to the DG mark
+- Favicon: animated blue arc on `/favicon.svg`
 ## Spacing
 
 4-point named scale in `src/index.css` / Tailwind `@theme`. Prefer semantic

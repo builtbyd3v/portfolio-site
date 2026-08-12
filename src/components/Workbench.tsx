@@ -13,15 +13,28 @@ const STACK_PREVIEW = skills
   .flatMap((group) => group.items.map((item) => item.name))
   .slice(0, 8)
 
-export default function Workbench() {
+export default function Workbench({ compact = false }: { compact?: boolean }) {
   const [samehere, aced] = projects
 
   return (
-    <section id="work" className="workbench" aria-label="Selected work">
-      <Reveal className="workbench-intro">
-        <h2>Selected work</h2>
-        <p>Two products I designed, built, and shipped to production.</p>
-      </Reveal>
+    <section
+      id="work"
+      className={`workbench${compact ? ' workbench-compact' : ''}`}
+      aria-label="Selected work"
+    >
+      {!compact && (
+        <Reveal className="workbench-intro">
+          <h2>Selected work</h2>
+          <p>Two products I designed, built, and shipped to production.</p>
+        </Reveal>
+      )}
+
+      {compact && (
+        <div className="workbench-intro workbench-intro-compact">
+          <p className="workbench-kicker">Selected work</p>
+          <h2>Live products, not mockups.</h2>
+        </div>
+      )}
 
       <div className="workbench-grid">
         <Reveal delayIndex={0} className="workbench-panel-samehere min-w-0 h-full">
@@ -142,8 +155,6 @@ export default function Workbench() {
           </div>
         </Reveal>
       </div>
-
-      <p className="workbench-note">Live product previews · Click a panel to open the site.</p>
     </section>
   )
 }

@@ -1,7 +1,6 @@
 import { experience, education, skills } from './data/content'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
-import Workbench from './components/Workbench'
 import Footer from './components/Footer'
 import Reveal from './components/Reveal'
 import TimelineItem from './components/TimelineItem'
@@ -24,7 +23,6 @@ function App() {
       <span id="top" />
       <main>
         <Hero />
-        <Workbench />
 
         <div className="section-shell">
           <section id="education" className="section-block">
@@ -49,14 +47,14 @@ function App() {
 
           <section id="skills" className="section-block">
             <SectionHeader title="Skills" note="The stack I reach for." />
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {skills.map((group, i) => (
                 <Reveal key={group.label} delayIndex={i}>
                   <div className="skill-panel">
                     <p className="text-[13px] font-medium tracking-[0.02em] text-ink">
                       {group.label}
                     </p>
-                    <div className="mt-4 flex flex-wrap gap-1.5">
+                    <div className="mt-3 flex flex-wrap gap-1.5">
                       {group.items.map((item) => (
                         <SkillBadge key={item.name} skill={item} />
                       ))}

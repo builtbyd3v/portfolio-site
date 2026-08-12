@@ -4,6 +4,7 @@ import {
   type CSSProperties,
 } from 'react'
 import { CONTACT } from '../data/content'
+import Workbench from './Workbench'
 
 const LINE_ONE = ['Building', 'things'] as const
 const LINE_TWO = ['people', 'actually', 'use.'] as const
@@ -76,8 +77,8 @@ export default function Hero() {
         </h1>
 
         <p className="hero-subhead">
-          Software engineering student shipping full-stack apps with Next.js,
-          TypeScript, Tailwind, and PostgreSQL — sometimes with AI in the loop.
+          Full-stack products with Next.js, TypeScript, and PostgreSQL — shipped
+          live, sometimes with AI in the loop.
         </p>
 
         <div className="hero-actions">
@@ -97,6 +98,10 @@ export default function Hero() {
             </a>
           </div>
         </div>
+      </div>
+
+      <div className="hero-workbench">
+        <Workbench compact />
       </div>
     </section>
   )

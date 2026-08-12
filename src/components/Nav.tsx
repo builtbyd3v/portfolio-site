@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { CONTACT } from '../data/content'
+import BrandLink from './BrandLink'
 
 const LINKS = [
   { href: '#work', label: 'Work' },
@@ -38,12 +39,7 @@ export default function Nav() {
   return (
     <header className={`site-nav${scrolled ? ' is-scrolled' : ''}`}>
       <div className="site-nav-shell">
-        <a
-          href="#top"
-          className="font-display text-[17px] font-semibold tracking-[-0.02em] text-ink no-underline"
-        >
-          Dev Goswami
-        </a>
+        <BrandLink />
 
         <nav className="site-nav-links" aria-label="Primary">
           {LINKS.map((link) => {
