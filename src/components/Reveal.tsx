@@ -15,17 +15,20 @@ const DELAYS = ['', 'delay-75', 'delay-150', 'delay-200', 'delay-300', 'delay-50
  * IntersectionObserver (reliable across React/StrictMode, unlike the motion
  * hooks on this React 19 stack). Under reduced-motion it shows instantly.
  */
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+}
+
 export default function Reveal({ children, className = '', delayIndex = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const [shown, setShown] = useState(false)
+  const [shown, setShown] = useState(prefersReducedMotion)
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setShown(true)
-      return
-    }
+    if (!el || shown) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -37,7 +40,7 @@ export default function Reveal({ children, className = '', delayIndex = 0 }: Rev
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [])
+  }, [shown])
 
   const delay = DELAYS[Math.min(delayIndex, DELAYS.length - 1)]
 

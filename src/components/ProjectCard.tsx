@@ -2,34 +2,38 @@ import type { Project } from '../data/content'
 
 /** Splits the meta string ("React · TypeScript · ...") into chips. */
 function techChips(meta: string): string[] {
-  return meta.split('·').map((s) => s.trim()).filter(Boolean)
+  return meta
+    .split('·')
+    .map((s) => s.trim())
+    .filter(Boolean)
 }
 
 /** Dark generated cover shown when a project has no real preview image. */
 function GeneratedCover({ title, tagline }: { title: string; tagline?: string }) {
   return (
-    <div className="relative flex h-full flex-col justify-between overflow-hidden bg-ink p-6">
+    <div className="relative flex h-full flex-col justify-between overflow-hidden bg-canvas p-6">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(420px circle at 80% 0%, rgba(14,165,233,0.28), transparent 60%),' +
-            'radial-gradient(360px circle at 0% 100%, rgba(236,128,160,0.18), transparent 60%)',
+            'radial-gradient(420px circle at 80% 0%, rgba(0,117,222,0.28), transparent 60%),' +
+            'radial-gradient(360px circle at 0% 100%, rgba(79,159,232,0.12), transparent 60%)',
         }}
       />
       {tagline && (
-        <span className="relative text-[12px] tracking-[0.12em] text-offwhite/55 uppercase">
+        <span className="relative text-[12px] tracking-[0.12em] text-muted uppercase">
           {tagline}
         </span>
       )}
-      <span className="relative font-display text-[34px] font-semibold tracking-[-0.02em] text-offwhite">
+      <span className="relative font-display text-[34px] font-semibold tracking-[-0.02em] text-ink">
         {title}
       </span>
     </div>
   )
 }
 
+/** Kept for reuse outside the workbench mosaic. */
 export default function ProjectCard({
   project,
   index,
@@ -42,16 +46,14 @@ export default function ProjectCard({
       href={project.href}
       target="_blank"
       rel="noreferrer"
-      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-cream p-3 transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-line-strong"
+      className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius)] border border-line bg-surface p-3 transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-line-strong"
     >
-      {/* Accent bar that sweeps across the top edge on hover. */}
       <span
         aria-hidden
         className="absolute inset-x-0 top-0 z-10 h-[3px] origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100"
       />
 
-      {/* Preview banner: real image, or a generated cover. */}
-      <div className="aspect-[16/10] overflow-hidden rounded-xl border border-line">
+      <div className="aspect-[16/10] overflow-hidden rounded-[var(--radius-sm)] border border-line">
         {project.image ? (
           <img
             src={project.image}
@@ -66,7 +68,7 @@ export default function ProjectCard({
 
       <div className="flex flex-1 flex-col px-4 pt-5 pb-4">
         <div className="flex items-center justify-between">
-          <span className="text-[13px] tabular-nums text-muted/60">
+          <span className="text-[13px] tabular-nums text-muted">
             {String(index + 1).padStart(2, '0')}
           </span>
           <span className="inline-flex items-center gap-1.5 text-[13px] text-muted">
@@ -79,7 +81,9 @@ export default function ProjectCard({
           {project.title}
         </h3>
 
-        <p className="mt-2 grow text-[14px] leading-[1.55] text-muted">{project.body}</p>
+        <p className="mt-2 grow text-[14px] leading-[1.55] text-muted">
+          {project.body}
+        </p>
 
         <div className="mt-5 flex flex-wrap gap-1.5">
           {techChips(project.meta).map((tech) => (
