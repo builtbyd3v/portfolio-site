@@ -102,7 +102,7 @@ export const skills: SkillGroup[] = [
     label: 'Frontend',
     items: [
       { name: 'React', slug: 'react', color: '61DAFB' },
-      { name: 'Next.js', slug: 'nextdotjs', color: '000000' },
+      { name: 'Next.js', slug: 'nextdotjs', color: 'FFFFFF' },
       { name: 'Tailwind CSS', slug: 'tailwindcss', color: '06B6D4' },
     ],
   },
@@ -110,8 +110,8 @@ export const skills: SkillGroup[] = [
     label: 'Backend',
     items: [
       { name: 'Node.js', slug: 'nodedotjs', color: '5FA04E' },
-      { name: 'Express.js', slug: 'express', color: '000000' },
-      { name: 'REST APIs' },
+      { name: 'Express.js', slug: 'express', color: 'FFFFFF' },
+      { name: 'REST APIs', slug: 'postman', color: 'FF6C37' },
     ],
   },
   {
@@ -125,10 +125,10 @@ export const skills: SkillGroup[] = [
     label: 'Tools',
     items: [
       { name: 'Git', slug: 'git', color: 'F05032' },
-      { name: 'GitHub', slug: 'github', color: '181717' },
-      { name: 'Vercel', slug: 'vercel', color: '000000' },
+      { name: 'GitHub', slug: 'github', color: 'FFFFFF' },
+      { name: 'Vercel', slug: 'vercel', color: 'FFFFFF' },
       { name: 'Claude Code', slug: 'claude', color: 'D97757' },
-      { name: 'Cursor', slug: 'cursor', color: '000000' },
+      { name: 'Cursor', slug: 'cursor', color: 'FFFFFF' },
     ],
   },
   {
@@ -136,8 +136,8 @@ export const skills: SkillGroup[] = [
     items: [
       { name: 'Data Structures & Algorithms' },
       { name: 'OOP' },
-      { name: 'Authentication' },
-      { name: 'AI-Assisted Development' },
+      { name: 'Authentication', slug: 'auth0', color: 'EB5424' },
+      { name: 'AI-Assisted Development', slug: 'anthropic', color: 'FFFFFF' },
     ],
   },
 ]

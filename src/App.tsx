@@ -3,7 +3,7 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Footer from './components/Footer'
 import Reveal from './components/Reveal'
-import TimelineItem from './components/TimelineItem'
+import ProofCard from './components/ProofCard'
 import SkillBadge from './components/SkillBadge'
 
 function SectionHeader({ title, note }: { title: string; note?: string }) {
@@ -30,31 +30,31 @@ function App() {
               title="Education"
               note="Competency-based degree, backed by focused bootcamps."
             />
-            <div className="ml-1 border-l border-line">
+            <div className="proof-grid">
               {education.map((e, i) => (
-                <TimelineItem key={e.org} period={e.period} delayIndex={i}>
-                  <h3 className="font-display text-[19px] font-medium text-ink">
-                    {e.org}
-                  </h3>
-                  <p className="mt-0.5 text-[13px] text-accent-strong">{e.detail}</p>
-                  <p className="mt-2 max-w-[60ch] text-[15px] leading-[1.6] text-body">
-                    {e.body}
-                  </p>
-                </TimelineItem>
+                <ProofCard
+                  key={e.org}
+                  period={e.period}
+                  eyebrow="Education"
+                  title={e.org}
+                  detail={e.detail}
+                  delayIndex={i}
+                  featured={i === 0}
+                >
+                  <p>{e.body}</p>
+                </ProofCard>
               ))}
             </div>
           </section>
 
           <section id="skills" className="section-block">
             <SectionHeader title="Skills" note="The stack I reach for." />
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="skills-grid">
               {skills.map((group, i) => (
                 <Reveal key={group.label} delayIndex={i}>
                   <div className="skill-panel">
-                    <p className="text-[13px] font-medium tracking-[0.02em] text-ink">
-                      {group.label}
-                    </p>
-                    <div className="mt-3 flex flex-wrap gap-1.5">
+                    <p className="skill-panel-label">{group.label}</p>
+                    <div className="skill-panel-items">
                       {group.items.map((item) => (
                         <SkillBadge key={item.name} skill={item} />
                       ))}
@@ -66,17 +66,23 @@ function App() {
           </section>
 
           <section id="experience" className="section-block">
-            <SectionHeader title="Experience" />
-            <div className="ml-1 border-l border-line">
+            <SectionHeader
+              title="Experience"
+              note="Leadership under pressure — the soft skills that transfer."
+            />
+            <div className="proof-grid proof-grid-single">
               {experience.map((e, i) => (
-                <TimelineItem key={e.org} period={e.period} delayIndex={i}>
-                  <h3 className="font-display text-[19px] font-medium text-ink">
-                    {e.role}, {e.org}
-                  </h3>
-                  <p className="mt-2 max-w-[60ch] text-[15px] leading-[1.6] text-body">
-                    {e.body}
-                  </p>
-                </TimelineItem>
+                <ProofCard
+                  key={e.org}
+                  period={e.period}
+                  eyebrow="Experience"
+                  title={`${e.role}`}
+                  detail={e.org}
+                  delayIndex={i}
+                  featured
+                >
+                  <p>{e.body}</p>
+                </ProofCard>
               ))}
             </div>
           </section>

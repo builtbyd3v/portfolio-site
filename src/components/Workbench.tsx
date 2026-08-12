@@ -1,5 +1,6 @@
 import { projects, skills } from '../data/content'
 import Reveal from './Reveal'
+import SkillBadge from './SkillBadge'
 
 function techChips(meta: string): string[] {
   return meta
@@ -10,7 +11,8 @@ function techChips(meta: string): string[] {
 }
 
 const STACK_PREVIEW = skills
-  .flatMap((group) => group.items.map((item) => item.name))
+  .flatMap((group) => group.items)
+  .filter((item) => item.slug)
   .slice(0, 8)
 
 export default function Workbench({ compact = false }: { compact?: boolean }) {
@@ -36,8 +38,43 @@ export default function Workbench({ compact = false }: { compact?: boolean }) {
         </div>
       )}
 
-      <div className="workbench-grid">
-        <Reveal delayIndex={0} className="workbench-panel-samehere min-w-0 h-full">
+      <Reveal delayIndex={0} className="workbench-now">
+        <div className="workbench-now-panel" aria-label="Right now">
+          <div className="workbench-now-copy">
+            <span className="workbench-stage-mark">
+              <span aria-hidden className="workbench-stage-dot workbench-stage-dot-live" />
+              Right now
+            </span>
+            <h3>Open to internships and early-career SWE roles.</h3>
+            <p>
+              Shipping samehere and Aced while finishing a B.S. in Software
+              Engineering at WGU.
+            </p>
+          </div>
+          <div className="workbench-now-facts">
+            <div className="workbench-status-row">
+              <strong>Degree</strong>
+              <span>B.S. Software Engineering · WGU</span>
+            </div>
+            <div className="workbench-status-row">
+              <strong>Focus</strong>
+              <span>samehere · Aced · interview prep</span>
+            </div>
+            <div className="workbench-status-row is-accent">
+              <strong>Open to</strong>
+              <span>Internships · early-career SWE</span>
+            </div>
+          </div>
+          <div className="workbench-now-stack" aria-label="Core stack">
+            {STACK_PREVIEW.map((skill) => (
+              <SkillBadge key={skill.name} skill={skill} />
+            ))}
+          </div>
+        </div>
+      </Reveal>
+
+      <div className="workbench-grid workbench-grid-products">
+        <Reveal delayIndex={1} className="min-w-0 h-full">
           <a
             href={samehere.href}
             target="_blank"
@@ -78,7 +115,7 @@ export default function Workbench({ compact = false }: { compact?: boolean }) {
           </a>
         </Reveal>
 
-        <Reveal delayIndex={1} className="min-w-0 h-full">
+        <Reveal delayIndex={2} className="min-w-0 h-full">
           <a
             href={aced.href}
             target="_blank"
@@ -117,42 +154,6 @@ export default function Workbench({ compact = false }: { compact?: boolean }) {
               </div>
             </div>
           </a>
-        </Reveal>
-
-        <Reveal delayIndex={2} className="min-w-0 h-full">
-          <div className="workbench-panel h-full" aria-label="Current status">
-            <header className="workbench-panel-header">
-              <div>
-                <span className="workbench-stage-mark">
-                  <span aria-hidden className="workbench-stage-dot" />
-                  Status
-                </span>
-                <h3>Right now</h3>
-              </div>
-              <span className="workbench-panel-meta">stack</span>
-            </header>
-            <div className="workbench-panel-body">
-              <div className="workbench-status">
-                <div className="workbench-status-row">
-                  <strong>Degree</strong>
-                  <span>B.S. Software Engineering · WGU</span>
-                </div>
-                <div className="workbench-status-row">
-                  <strong>Focus</strong>
-                  <span>Shipping samehere &amp; Aced</span>
-                </div>
-                <div className="workbench-status-row">
-                  <strong>Open to</strong>
-                  <span>Internships · early-career SWE</span>
-                </div>
-              </div>
-              <div className="workbench-chips" aria-label="Core stack">
-                {STACK_PREVIEW.map((name) => (
-                  <span key={name}>{name}</span>
-                ))}
-              </div>
-            </div>
-          </div>
         </Reveal>
       </div>
     </section>
