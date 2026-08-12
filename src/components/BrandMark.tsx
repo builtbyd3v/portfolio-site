@@ -11,10 +11,10 @@ type MarkProps = {
 export default function BrandMark({ className = '', animate = true }: MarkProps) {
   return (
     <img
-      src="/brand-drafts/logo-dg-geometric.png"
+      src="/brand-drafts/logo-dg-geometric-clear.png"
       alt=""
-      width={32}
-      height={32}
+      width={48}
+      height={48}
       className={`brand-mark-img${animate ? ' brand-mark-group' : ''} ${className}`.trim()}
       draggable={false}
     />
