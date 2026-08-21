@@ -139,13 +139,13 @@ h3 {
   content: '';
   position: absolute;
   inset: 0 0 auto;
-  height: 7.25rem;
+  height: 5.75rem;
   pointer-events: none;
   opacity: 0;
   background: linear-gradient(
     to bottom,
-    rgba(10, 10, 10, 0.82) 0%,
-    rgba(10, 10, 10, 0.28) 52%,
+    rgba(10, 10, 10, 0.48) 0%,
+    rgba(10, 10, 10, 0.14) 55%,
     transparent 100%
   );
   transition: opacity 220ms var(--ease-out);
@@ -183,9 +183,9 @@ h3 {
 
 .site-nav.is-scrolled .site-nav-shell {
   padding: 0.42rem 0.95rem;
-  background: rgba(26, 26, 26, 0.72);
-  border-color: var(--color-line-strong);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  background: rgba(26, 26, 26, 0.82);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }
@@ -283,7 +283,16 @@ h3 {
   }
 
   .site-nav.is-scrolled {
-    padding-inline: 0.75rem;
+    padding-inline: 0.9rem;
+  }
+
+  .site-nav.is-scrolled::before {
+    height: 4.75rem;
+    background: linear-gradient(
+      to bottom,
+      rgba(10, 10, 10, 0.28),
+      transparent
+    );
   }
 
   .site-nav-shell {

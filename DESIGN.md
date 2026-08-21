@@ -45,8 +45,8 @@ atmospheric
 
 - At rest: transparent, no blur, no chrome. Sits over the hero
 - On scroll (`scrollY > 28`): soft canvas fade behind an inset island
-- Island: `--color-surface` at ~72% with 18px blur, `--color-line-strong` hairline, inset highlight only (no drop shadow)
-- Fluid side inset (`clamp(0.9rem, 3.2vw, 2.25rem)`) so the bar never reads full-bleed
+- Island: `--color-surface` at ~82% with 18px blur, light hairline, inset highlight only (no drop shadow)
+- Fluid side inset (`clamp(0.9rem, 3.2vw, 2.25rem)`) so the bar never reads full-bleed; fade stays light so those gaps stay visible
 - Section links hide below 900px; five icon actions stay
 
 ## Hero
