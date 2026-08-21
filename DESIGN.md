@@ -71,7 +71,7 @@ utility classes over raw rem values.
 
 ## Page rhythm
 
-1. Translucent N1b nav (wordmark · section links · Resume primary)
+1. Translucent N1b nav (transparent over the hero, floating glass bar on scroll)
 2. Centered hero with announcement chip, word-stagger headline, two CTAs
 3. Workbench mosaic (`#work`) — current focus panel, then shipped project cards
 4. Activity (`#activity`) — GitHub contribution heatmap in accent blue
