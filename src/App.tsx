@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import Reveal from './components/Reveal'
 import ProofCard from './components/ProofCard'
 import SkillBadge from './components/SkillBadge'
+import ContributionMap from './components/ContributionMap'
 
 function SectionHeader({ title, note }: { title: string; note?: string }) {
   return (
@@ -30,12 +31,22 @@ function App() {
         </div>
 
         <div className="section-shell">
+          <section id="activity" className="section-block">
+            <SectionHeader
+              title="Activity"
+              note="GitHub, last 12 months."
+            />
+            <Reveal>
+              <ContributionMap />
+            </Reveal>
+          </section>
+
           <section id="education" className="section-block">
             <SectionHeader
               title="Education"
-              note="Competency-based degree, backed by focused bootcamps."
+              note="WGU and CodePath."
             />
-            <div className="proof-grid">
+            <div className="proof-grid proof-grid-single">
               {education.map((e, i) => (
                 <ProofCard
                   key={e.org}
@@ -44,7 +55,7 @@ function App() {
                   title={e.org}
                   detail={e.detail}
                   delayIndex={i}
-                  featured={i === 0}
+                  featured
                 >
                   <p>{e.body}</p>
                 </ProofCard>
@@ -53,7 +64,7 @@ function App() {
           </section>
 
           <section id="skills" className="section-block">
-            <SectionHeader title="Skills" note="The stack I reach for." />
+            <SectionHeader title="Skills" />
             <div className="skills-grid">
               {skills.map((group, i) => (
                 <Reveal key={group.label} delayIndex={i}>
@@ -61,11 +72,7 @@ function App() {
                     <p className="skill-panel-label">{group.label}</p>
                     <div className="skill-panel-items">
                       {group.items.map((item) => (
-                        <SkillBadge
-                          key={item.name}
-                          skill={item}
-                          showIcon={group.label !== 'Concepts'}
-                        />
+                        <SkillBadge key={item.name} skill={item} />
                       ))}
                     </div>
                   </div>
@@ -75,10 +82,7 @@ function App() {
           </section>
 
           <section id="experience" className="section-block">
-            <SectionHeader
-              title="Experience"
-              note="Leadership under pressure — the soft skills that transfer."
-            />
+            <SectionHeader title="Experience" />
             <div className="proof-grid proof-grid-single">
               {experience.map((e, i) => (
                 <ProofCard

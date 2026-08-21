@@ -5,8 +5,8 @@ import {
 } from 'react'
 import { CONTACT } from '../data/content'
 
-const LINE_ONE = ['Building', 'things'] as const
-const LINE_TWO = ['people', 'actually', 'use.'] as const
+const LINE_ONE = ['Building', 'skills'] as const
+const LINE_TWO = ['for', 'Summer', '2027.'] as const
 
 function RevealWords({
   words,
@@ -63,8 +63,8 @@ export default function Hero() {
       <div className="hero-copy">
         <div className="hero-announcement">
           <a href="#contact" className="hero-announce">
-            <span>Open to roles</span>
-            Internships and early-career SWE
+            <span>Summer 2027</span>
+            Software engineer intern
             <span aria-hidden>→</span>
           </a>
         </div>
@@ -76,8 +76,8 @@ export default function Hero() {
         </h1>
 
         <p className="hero-subhead">
-          Software engineering student shipping samehere — a live student
-          network built with Next.js, TypeScript, and Supabase.
+          WGU software engineering student in {CONTACT.location}. Full-stack and
+          AI engineering. DSA, CodePath, and freelance work right now.
         </p>
 
         <div className="hero-actions">
