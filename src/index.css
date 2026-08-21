@@ -129,12 +129,34 @@ h3 {
   inset-inline: 0;
   top: 0;
   z-index: 50;
-  padding: max(0.65rem, env(safe-area-inset-top, 0px)) 1rem 0;
+  padding: max(0.7rem, env(safe-area-inset-top, 0px))
+    clamp(0.85rem, 2.6vw, 1.5rem) 0;
   background: transparent;
   pointer-events: none;
 }
 
+.site-nav::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 7.25rem;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.82) 0%,
+    rgba(10, 10, 10, 0.28) 52%,
+    transparent 100%
+  );
+  transition: opacity 220ms var(--ease-out);
+}
+
+.site-nav.is-scrolled::before {
+  opacity: 1;
+}
+
 .site-nav-shell {
+  position: relative;
   pointer-events: auto;
   margin-inline: auto;
   display: grid;
@@ -155,18 +177,33 @@ h3 {
 }
 
 .site-nav.is-scrolled {
-  padding-inline: 1.15rem;
+  padding-block-start: max(0.85rem, env(safe-area-inset-top, 0px));
+  padding-inline: clamp(0.9rem, 3.2vw, 2.25rem);
 }
 
 .site-nav.is-scrolled .site-nav-shell {
-  padding: 0.5rem 1.1rem;
-  background: rgba(12, 12, 12, 0.78);
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.04) inset,
-    0 14px 40px rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(22px) saturate(1.5);
-  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  padding: 0.42rem 0.95rem;
+  background: rgba(26, 26, 26, 0.72);
+  border-color: var(--color-line-strong);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .site-nav.is-scrolled .site-nav-shell {
+    background: var(--color-surface);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .site-nav.is-scrolled .site-nav-shell {
+    background: var(--color-surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
 .site-nav-shell > .brand-link {
@@ -245,6 +282,10 @@ h3 {
     padding-inline: 0.75rem;
   }
 
+  .site-nav.is-scrolled {
+    padding-inline: 0.75rem;
+  }
+
   .site-nav-shell {
     gap: 0.5rem;
     padding: 0.55rem 0.7rem;
@@ -252,7 +293,7 @@ h3 {
   }
 
   .site-nav.is-scrolled .site-nav-shell {
-    padding: 0.4rem 0.6rem;
+    padding: 0.38rem 0.55rem;
   }
 
   .site-nav-actions a {
