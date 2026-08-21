@@ -4,26 +4,28 @@ export const CONTACT = {
   x: 'https://x.com/builtbydev',
   linkedin: 'https://www.linkedin.com/in/builtbydev',
   resume: '/resume-standard.pdf',
+  location: 'Gainesville, FL',
 }
 
 export type Project = {
   title: string
   meta: string
   status: string
+  stage: string
   body: string
-  href: string
-  /** Preview image URL. When absent, the card renders a generated cover. */
+  href?: string
   image?: string
-  /** Short label shown on the generated cover when there is no image. */
+  cta?: string
   tagline?: string
 }
 
 export const projects: Project[] = [
   {
     title: 'samehere',
-    meta: 'Next.js · React · TypeScript · Tailwind CSS · Supabase · Claude (OpenAI SDK) · Vercel',
+    meta: 'Next.js · TypeScript · React · PostgreSQL · Supabase · Stripe · Tailwind CSS · Vercel',
     status: 'Live',
-    body: 'Student social app with .edu verification. Claude suggests peers from profile overlap (OpenAI SDK on the server). Feed, profiles, DMs, follows, activity heatmap. Live on Vercel.',
+    stage: 'Live',
+    body: 'Invite-only student networking app. Auth, profiles, feed, realtime DMs, clubs, notifications, and an AI jobs board. Postgres and Supabase with RLS. Stripe for checkout. I write the spec, review the diff, and ship the parts I would merge.',
     href: 'https://samehere.dev',
     image: '/projects/samehere.png',
   },
@@ -31,6 +33,7 @@ export const projects: Project[] = [
     title: 'Aced',
     meta: 'React · TypeScript · Tailwind CSS · Claude API · Vercel',
     status: 'Shipped',
+    stage: 'Shipped',
     body: 'Mock interviews from a job description. Paste the JD, answer five questions for that role, get scored feedback on each answer.',
     href: 'https://aced-dev.vercel.app',
     image: '/projects/aced.png',
@@ -46,10 +49,10 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
-    role: 'Service Leader',
-    org: 'Chipotle Mexican Grill',
-    period: '2021-Present',
-    body: 'Ran high-volume shifts and trained crew on food safety, cash handling, and inventory. Throughput up ~20%, waste down ~15%.',
+    role: 'Freelance Web Developer',
+    org: 'Saddle River Roofing',
+    period: 'Aug 2026-Present',
+    body: 'Specifying and building a new Next.js site for a local roofing company, replacing saddleriverroofing.com. TypeScript, React, and Tailwind. Component-based, mobile-responsive.',
   },
 ]
 
@@ -64,25 +67,17 @@ export const education: Education[] = [
   {
     org: 'Western Governors University',
     detail: 'B.S. Software Engineering · 4.0 GPA',
-    period: 'Oct 2025-Oct 2027',
-    body: 'Competency-based B.S. Covers software design, data structures, and full-stack engineering. You move forward by passing assessments, not by semester schedule.',
+    period: 'Expected Fall 2027',
+    body: 'Competency-based degree. Coursework includes data structures and algorithms, discrete math, version control, systems thinking, and technical communication.',
   },
   {
     org: 'CodePath',
-    detail: 'Software Engineering Bootcamp',
-    period: 'Jun 2026-Aug 2026',
-    body: 'Three tracks running in parallel: full-stack web (Node.js, Express, PostgreSQL, REST, auth, deployment), AI engineering (building and debugging with LLM tools), and interview prep (Python, data structures, algorithms, OOP).',
-  },
-  {
-    org: 'Scrimba',
-    detail: 'Frontend Developer Path',
-    period: 'Sep 2025-Apr 2026',
-    body: 'MDN-based path through HTML, CSS, JavaScript, and React. Shipped 12+ projects and worked through many coding exercises along the way.',
+    detail: 'Software Engineering Program · Honors in WEB103, AI110',
+    period: 'Jun 2026-Present',
+    body: 'Finished WEB103, AI110, and TIP101. Full-stack work in React, Node.js, Express, PostgreSQL, and REST APIs. TIP102 and AI201 continue in Fall 2026.',
   },
 ]
 
-// `slug` = simple-icons slug (https://simpleicons.org). `color` = brand hex.
-// Items without a slug render as plain text chips.
 export type Skill = { name: string; slug?: string; color?: string }
 export type SkillGroup = { label: string; items: Skill[] }
 
@@ -94,50 +89,30 @@ export const skills: SkillGroup[] = [
       { name: 'JavaScript', slug: 'javascript', color: 'F7DF1E' },
       { name: 'Python', slug: 'python', color: '3776AB' },
       { name: 'SQL', slug: 'postgresql', color: '4169E1' },
-      { name: 'HTML5', slug: 'html5', color: 'E34F26' },
+      { name: 'HTML', slug: 'html5', color: 'E34F26' },
       { name: 'CSS', slug: 'css', color: '663399' },
     ],
   },
   {
-    label: 'Frontend',
+    label: 'Frameworks',
     items: [
       { name: 'React', slug: 'react', color: '61DAFB' },
       { name: 'Next.js', slug: 'nextdotjs', color: 'FFFFFF' },
-      { name: 'Tailwind CSS', slug: 'tailwindcss', color: '06B6D4' },
-    ],
-  },
-  {
-    label: 'Backend',
-    items: [
       { name: 'Node.js', slug: 'nodedotjs', color: '5FA04E' },
-      { name: 'Express.js', slug: 'express', color: 'FFFFFF' },
-      { name: 'REST APIs', slug: 'postman', color: 'FF6C37' },
-    ],
-  },
-  {
-    label: 'Databases',
-    items: [
-      { name: 'PostgreSQL', slug: 'postgresql', color: '4169E1' },
-      { name: 'Supabase', slug: 'supabase', color: '3FCF8E' },
+      { name: 'Express', slug: 'express', color: 'FFFFFF' },
+      { name: 'Tailwind CSS', slug: 'tailwindcss', color: '06B6D4' },
     ],
   },
   {
     label: 'Tools',
     items: [
       { name: 'Git', slug: 'git', color: 'F05032' },
-      { name: 'GitHub', slug: 'github', color: 'FFFFFF' },
+      { name: 'PostgreSQL', slug: 'postgresql', color: '4169E1' },
+      { name: 'Supabase', slug: 'supabase', color: '3FCF8E' },
       { name: 'Vercel', slug: 'vercel', color: 'FFFFFF' },
+      { name: 'Stripe', slug: 'stripe', color: '635BFF' },
       { name: 'Claude Code', slug: 'claude', color: 'D97757' },
       { name: 'Cursor', slug: 'cursor', color: 'FFFFFF' },
-    ],
-  },
-  {
-    label: 'Concepts',
-    items: [
-      { name: 'Data Structures & Algorithms' },
-      { name: 'OOP' },
-      { name: 'Authentication' },
-      { name: 'AI-Assisted Development' },
     ],
   },
 ]

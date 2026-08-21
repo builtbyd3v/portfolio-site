@@ -39,7 +39,7 @@ atmospheric
 
 - DG interlocking monogram: blocky D with nested G (locked draft)
 - Nav: Figtree wordmark draws in, then contracts to the DG mark
-- Favicon: `/favicon.svg` matching the mark
+- Favicon: `/favicon.png` (and `/favicon.svg`) using the geometric DG mark on `#0a0a0a`, same asset as the nav
 
 ## Hero
 
@@ -73,9 +73,10 @@ utility classes over raw rem values.
 
 1. Translucent N1b nav (wordmark · section links · Resume primary)
 2. Centered hero with announcement chip, word-stagger headline, two CTAs
-3. Workbench mosaic (`#work`) — samehere + Aced demo panels + stack/status panel
-4. Education · Skills · Experience on dark surfaces
-5. Compact contact finale + footer rule
+3. Workbench mosaic (`#work`) — current focus panel, then shipped project cards
+4. Activity (`#activity`) — GitHub contribution heatmap in accent blue
+5. Education · Skills · Experience on dark surfaces
+6. Compact contact finale + footer rule
 
 ## What pages MUST share
 

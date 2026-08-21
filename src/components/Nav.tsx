@@ -11,6 +11,7 @@ import {
 
 const LINKS = [
   { href: '#work', label: 'Projects' },
+  { href: '#activity', label: 'Activity' },
   { href: '#education', label: 'Education' },
   { href: '#skills', label: 'Skills' },
 ]

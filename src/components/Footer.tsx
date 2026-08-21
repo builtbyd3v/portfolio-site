@@ -13,10 +13,11 @@ export default function Footer() {
     <footer id="contact" className="site-footer">
       <div className="section-shell">
         <Reveal>
-          <h2>Let&rsquo;s build something.</h2>
+          <h2>Hiring for Summer 2027?</h2>
           <p className="site-footer-copy">
-            Open to internships and early-career software roles. The fastest way
-            to reach me is email.
+            I want a software engineering internship. US citizen, willing to
+            relocate, based in {CONTACT.location}. Email is the fastest way to
+            reach me.
           </p>
 
           <div className="mt-8">

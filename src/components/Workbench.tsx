@@ -1,4 +1,4 @@
-import { projects, skills } from '../data/content'
+import { projects, skills, type Project } from '../data/content'
 import Reveal from './Reveal'
 import SkillBadge from './SkillBadge'
 
@@ -10,14 +10,87 @@ function techChips(meta: string): string[] {
     .slice(0, 5)
 }
 
-const STACK_PREVIEW = skills
-  .flatMap((group) => group.items)
-  .filter((item) => item.slug)
-  .slice(0, 8)
+const PREVIEW_NAMES = [
+  'TypeScript',
+  'React',
+  'Next.js',
+  'Node.js',
+  'PostgreSQL',
+  'Python',
+  'Tailwind CSS',
+  'Git',
+]
+
+const STACK_PREVIEW = PREVIEW_NAMES.map((name) =>
+  skills.flatMap((group) => group.items).find((item) => item.name === name),
+).filter((item): item is NonNullable<typeof item> => Boolean(item))
+
+function ProjectPanel({
+  project,
+  delayIndex,
+}: {
+  project: Project
+  delayIndex: number
+}) {
+  const inner = (
+    <>
+      <header className="workbench-panel-header">
+        <div>
+          <span className="workbench-stage-mark">
+            <span aria-hidden className="workbench-stage-dot" />
+            {project.stage}
+          </span>
+          <h3>{project.title}</h3>
+        </div>
+        <span className="workbench-panel-meta">{project.status}</span>
+      </header>
+      {project.image && (
+        <div className="workbench-panel-media">
+          <img
+            src={project.image}
+            alt={`${project.title} preview`}
+            loading="lazy"
+          />
+        </div>
+      )}
+      <div className="workbench-panel-body">
+        <p>{project.body}</p>
+        <div className="workbench-chips">
+          {techChips(project.meta).map((tech) => (
+            <span key={tech}>{tech}</span>
+          ))}
+        </div>
+        {project.href && (
+          <div className="workbench-panel-cta">
+            <span>{project.cta ?? 'Visit site'}</span>
+            <span aria-hidden>→</span>
+          </div>
+        )}
+      </div>
+    </>
+  )
+
+  const className = 'workbench-panel h-full'
+
+  return (
+    <Reveal delayIndex={delayIndex} className="min-w-0 h-full">
+      {project.href ? (
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noreferrer"
+          className={className}
+        >
+          {inner}
+        </a>
+      ) : (
+        <div className={className}>{inner}</div>
+      )}
+    </Reveal>
+  )
+}
 
 export default function Workbench({ compact = false }: { compact?: boolean }) {
-  const [samehere, aced] = projects
-
   return (
     <section
       id="work"
@@ -26,8 +99,8 @@ export default function Workbench({ compact = false }: { compact?: boolean }) {
     >
       <Reveal className="workbench-intro">
         <p className="workbench-kicker">Selected work</p>
-        <h2>Live products, not mockups.</h2>
-        <p>samehere is the active build. Aced is a shipped interview trainer.</p>
+        <h2>Projects</h2>
+        <p>Freelance is listed under experience.</p>
       </Reveal>
 
       <Reveal delayIndex={0} className="workbench-now">
@@ -37,24 +110,24 @@ export default function Workbench({ compact = false }: { compact?: boolean }) {
               <span aria-hidden className="workbench-stage-dot workbench-stage-dot-live" />
               Right now
             </span>
-            <h3>Focused on samehere. Open to internships.</h3>
+            <h3>I want a Summer 2027 internship.</h3>
             <p>
-              Actively building and iterating samehere while finishing a B.S. in
-              Software Engineering at WGU.
+              DSA and interview prep through CodePath, the WGU degree, and
+              freelance Next.js I can talk through in an interview.
             </p>
           </div>
           <div className="workbench-now-facts">
+            <div className="workbench-status-row is-accent">
+              <strong>Targeting</strong>
+              <span>Summer 2027 internship</span>
+            </div>
             <div className="workbench-status-row">
-              <strong>Building</strong>
-              <span>samehere</span>
+              <strong>Now</strong>
+              <span>CodePath · WGU · freelance Next.js</span>
             </div>
             <div className="workbench-status-row">
               <strong>Degree</strong>
-              <span>B.S. Software Engineering · WGU</span>
-            </div>
-            <div className="workbench-status-row is-accent">
-              <strong>Open to</strong>
-              <span>Internships · early-career SWE</span>
+              <span>B.S. Software Engineering · Fall 2027</span>
             </div>
           </div>
           <div className="workbench-now-stack" aria-label="Core stack">
@@ -66,87 +139,13 @@ export default function Workbench({ compact = false }: { compact?: boolean }) {
       </Reveal>
 
       <div className="workbench-grid workbench-grid-products">
-        <Reveal delayIndex={1} className="min-w-0 h-full">
-          <a
-            href={samehere.href}
-            target="_blank"
-            rel="noreferrer"
-            className="workbench-panel workbench-panel-featured h-full"
-          >
-            <header className="workbench-panel-header">
-              <div>
-                <span className="workbench-stage-mark">
-                  <span aria-hidden className="workbench-stage-dot workbench-stage-dot-live" />
-                  Active
-                </span>
-                <h3>{samehere.title}</h3>
-              </div>
-              <span className="workbench-panel-meta">{samehere.status}</span>
-            </header>
-            {samehere.image && (
-              <div className="workbench-panel-media">
-                <img
-                  src={samehere.image}
-                  alt={`${samehere.title} preview`}
-                  loading="lazy"
-                />
-              </div>
-            )}
-            <div className="workbench-panel-body">
-              <p>{samehere.body}</p>
-              <div className="workbench-chips">
-                {techChips(samehere.meta).map((tech) => (
-                  <span key={tech}>{tech}</span>
-                ))}
-              </div>
-              <div className="workbench-panel-cta">
-                <span>Visit site</span>
-                <span aria-hidden>→</span>
-              </div>
-            </div>
-          </a>
-        </Reveal>
-
-        <Reveal delayIndex={2} className="min-w-0 h-full">
-          <a
-            href={aced.href}
-            target="_blank"
-            rel="noreferrer"
-            className="workbench-panel h-full"
-          >
-            <header className="workbench-panel-header">
-              <div>
-                <span className="workbench-stage-mark">
-                  <span aria-hidden className="workbench-stage-dot" />
-                  Shipped
-                </span>
-                <h3>{aced.title}</h3>
-              </div>
-              <span className="workbench-panel-meta">Live</span>
-            </header>
-            {aced.image && (
-              <div className="workbench-panel-media">
-                <img
-                  src={aced.image}
-                  alt={`${aced.title} preview`}
-                  loading="lazy"
-                />
-              </div>
-            )}
-            <div className="workbench-panel-body">
-              <p>{aced.body}</p>
-              <div className="workbench-chips">
-                {techChips(aced.meta).map((tech) => (
-                  <span key={tech}>{tech}</span>
-                ))}
-              </div>
-              <div className="workbench-panel-cta">
-                <span>Visit site</span>
-                <span aria-hidden>→</span>
-              </div>
-            </div>
-          </a>
-        </Reveal>
+        {projects.map((project, i) => (
+          <ProjectPanel
+            key={project.title}
+            project={project}
+            delayIndex={i + 1}
+          />
+        ))}
       </div>
     </section>
   )
