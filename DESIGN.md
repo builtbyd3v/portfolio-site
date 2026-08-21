@@ -41,6 +41,14 @@ atmospheric
 - Nav: Figtree wordmark draws in, then contracts to the DG mark
 - Favicon: `/favicon.png` (and `/favicon.svg`) using the geometric DG mark on `#0a0a0a`, same asset as the nav
 
+## Nav
+
+- At rest: transparent, no blur, no chrome. Sits over the hero
+- On scroll (`scrollY > 28`): soft canvas fade behind an inset island
+- Island: `--color-surface` at ~72% with 18px blur, `--color-line-strong` hairline, inset highlight only (no drop shadow)
+- Fluid side inset (`clamp(0.9rem, 3.2vw, 2.25rem)`) so the bar never reads full-bleed
+- Section links hide below 900px; five icon actions stay
+
 ## Hero
 
 - First viewport is hero-only (announcement, headline, subhead, CTAs, scroll cue)
@@ -71,7 +79,7 @@ utility classes over raw rem values.
 
 ## Page rhythm
 
-1. Translucent N1b nav (wordmark · section links · Resume primary)
+1. Translucent N1b nav (clear over the hero; on scroll, canvas fade + inset surface island)
 2. Centered hero with announcement chip, word-stagger headline, two CTAs
 3. Workbench mosaic (`#work`) — current focus panel, then shipped project cards
 4. Activity (`#activity`) — GitHub contribution heatmap in accent blue

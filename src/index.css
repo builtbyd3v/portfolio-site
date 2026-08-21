@@ -129,19 +129,35 @@ h3 {
   inset-inline: 0;
   top: 0;
   z-index: 50;
-  min-height: 64px;
-  background: rgba(10, 10, 10, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--dur-short) var(--ease-out);
+  padding: max(0.7rem, env(safe-area-inset-top, 0px))
+    clamp(0.85rem, 2.6vw, 1.5rem) 0;
+  background: transparent;
+  pointer-events: none;
 }
 
-.site-nav.is-scrolled {
-  border-bottom-color: var(--color-line);
+.site-nav::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 7.25rem;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.82) 0%,
+    rgba(10, 10, 10, 0.28) 52%,
+    transparent 100%
+  );
+  transition: opacity 220ms var(--ease-out);
+}
+
+.site-nav.is-scrolled::before {
+  opacity: 1;
 }
 
 .site-nav-shell {
+  position: relative;
+  pointer-events: auto;
   margin-inline: auto;
   display: grid;
   width: 100%;
@@ -149,7 +165,45 @@ h3 {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 1rem;
-  padding: 0.875rem 1.5rem;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 1.15rem;
+  background: transparent;
+  transition:
+    background-color 220ms var(--ease-out),
+    border-color 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out),
+    padding 220ms var(--ease-out);
+}
+
+.site-nav.is-scrolled {
+  padding-block-start: max(0.85rem, env(safe-area-inset-top, 0px));
+  padding-inline: clamp(0.9rem, 3.2vw, 2.25rem);
+}
+
+.site-nav.is-scrolled .site-nav-shell {
+  padding: 0.42rem 0.95rem;
+  background: rgba(26, 26, 26, 0.72);
+  border-color: var(--color-line-strong);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .site-nav.is-scrolled .site-nav-shell {
+    background: var(--color-surface);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .site-nav.is-scrolled .site-nav-shell {
+    background: var(--color-surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
 .site-nav-shell > .brand-link {
@@ -224,9 +278,22 @@ h3 {
 }
 
 @media (max-width: 540px) {
+  .site-nav {
+    padding-inline: 0.75rem;
+  }
+
+  .site-nav.is-scrolled {
+    padding-inline: 0.75rem;
+  }
+
   .site-nav-shell {
     gap: 0.5rem;
-    padding: 0.75rem 1rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: 1rem;
+  }
+
+  .site-nav.is-scrolled .site-nav-shell {
+    padding: 0.38rem 0.55rem;
   }
 
   .site-nav-actions a {

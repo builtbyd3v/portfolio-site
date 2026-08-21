@@ -57,7 +57,7 @@ export default function Nav() {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 8)
+      setScrolled(window.scrollY > 28)
       const line = window.innerHeight * 0.35
       let current = ''
       for (const id of SECTION_IDS) {
