@@ -1,102 +1,32 @@
-import {
-  useLayoutEffect,
-  useRef,
-  type CSSProperties,
-} from 'react'
-import { CONTACT } from '../data/content'
-
-const LINE_ONE = ['Building', 'skills'] as const
-const LINE_TWO = ['for', 'Summer', '2027.'] as const
-
-function RevealWords({
-  words,
-  offset,
-}: {
-  words: readonly string[]
-  offset: number
-}) {
-  return words.map((word, index) => (
-    <span key={`${word}-${index}`}>
-      {index > 0 ? ' ' : null}
-      <span
-        className="hero-word"
-        style={{ '--word-index': offset + index } as CSSProperties}
-      >
-        {word}
-      </span>
-    </span>
-  ))
-}
+import { CONTACT } from '@/data/content'
 
 export default function Hero() {
-  const heroRef = useRef<HTMLElement>(null)
-
-  useLayoutEffect(() => {
-    const hero = heroRef.current
-    if (!hero) return
-
-    function skipIntroWhenHidden() {
-      const bounds = hero?.getBoundingClientRect()
-      if (
-        document.visibilityState === 'hidden' ||
-        !bounds ||
-        bounds.top >= window.innerHeight - 40 ||
-        bounds.bottom <= 40
-      ) {
-        hero?.classList.add('hero-skip-intro')
-      }
-    }
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      hero.classList.add('hero-skip-intro')
-      return
-    }
-
-    skipIntroWhenHidden()
-    document.addEventListener('visibilitychange', skipIntroWhenHidden)
-    return () =>
-      document.removeEventListener('visibilitychange', skipIntroWhenHidden)
-  }, [])
-
   return (
-    <section ref={heroRef} className="hero" aria-label="Introduction">
-      <div className="hero-copy">
-        <div className="hero-announcement">
-          <a href="#contact" className="hero-announce">
-            <span>Summer 2027</span>
-            Software engineer intern
-            <span aria-hidden>→</span>
-          </a>
-        </div>
-
-        <h1>
-          <RevealWords words={LINE_ONE} offset={0} />
-          <br />
-          <RevealWords words={LINE_TWO} offset={LINE_ONE.length} />
+    <section className="px-6 pt-16 pb-20 sm:pt-24 sm:pb-28" aria-label="Introduction">
+      <div className="mx-auto max-w-3xl">
+        <h1 className="text-4xl font-semibold tracking-tight text-pretty sm:text-5xl">
+          Building skills for Summer 2027.
         </h1>
-
-        <p className="hero-subhead">
+        <p className="mt-5 max-w-[40rem] text-[15px] leading-7 text-muted-foreground">
           WGU software engineering student in {CONTACT.location}. Full-stack and
           AI engineering. DSA, CodePath, and freelance work right now.
         </p>
-
-        <div className="hero-actions">
-          <div className="hero-action hero-action-primary">
-            <a href="#work" className="btn-primary">
-              View work
-            </a>
-          </div>
-          <div className="hero-action hero-action-secondary">
-            <a
-              href={CONTACT.resume}
-              target="_blank"
-              rel="noreferrer"
-              className="btn-ghost"
-            >
-              Resume
-            </a>
-          </div>
-        </div>
+        <p className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+          <a
+            href="#work"
+            className="font-medium text-foreground underline-offset-4 hover:underline"
+          >
+            View work
+          </a>
+          <a
+            href={CONTACT.resume}
+            target="_blank"
+            rel="noreferrer"
+            className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+          >
+            Resume
+          </a>
+        </p>
       </div>
     </section>
   )

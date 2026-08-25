@@ -1,107 +1,83 @@
 # Design — Dev Goswami Portfolio
 
-A locked design system for this site. Atmospheric Workbench DNA studied from
-https://x.ai/ and ported from samehere's `feat/zero-to-internship` landing.
-Do not regenerate per section — amend this file when the system needs to grow.
+Locked system for this site. Amend this file when the system needs to grow.
+Do not regenerate per section.
 
 ## Genre
 
-atmospheric
+swiss product-index
 
-## Macrostructure family
+## Macrostructure
 
-- Marketing / portfolio pages: Workbench (centered statement hero → living
-  product mosaic → denser proof sections → compact contact)
+Type-led recruiter portfolio in the shadcn.com family: sticky text nav, left
+aligned statement hero, stacked work, then denser proof, compact contact.
 
 ## Theme
 
-- `--color-canvas`       `#0a0a0a`
-- `--color-surface`      `#1a1a1a`
-- `--color-surface-raised` `#1f2228`
-- `--color-ink`          `#ffffff`
-- `--color-body`         `rgba(255, 255, 255, 0.72)`
-- `--color-muted`        `#7d8187`
-- `--color-line`         `rgba(255, 255, 255, 0.06)`
-- `--color-line-strong`  `rgba(255, 255, 255, 0.15)`
-- `--color-tint`         `rgba(255, 255, 255, 0.05)`
-- `--color-accent`       `#0075de`
-- `--color-accent-strong` `#4f9fe8`
-- `--color-accent-soft`  `rgba(0, 117, 222, 0.14)`
-- `--color-focus`        `#0075de`
+Light default. Dark via `html.dark`. Zinc scale from shadcn nova.
 
-## Typography
-
-- Display / body / brand wordmark: Figtree, weight 400–600
-- Display tracking: about `-0.025em` on hero
-- Hero size: `clamp(2.75rem, 4.4vw, 3.5rem)` for short centered statements
+- Type: Geist Variable
+- Radius: `0.625rem`
+- Accent: `#0075de` on the GitHub heatmap only
+- Background / foreground / muted / border: shadcn zinc tokens in `src/index.css`
 
 ## Brand mark
 
-- DG interlocking monogram: blocky D with nested G (locked draft)
-- Nav: Figtree wordmark draws in, then contracts to the DG mark
-- Favicon: `/favicon.png` (and `/favicon.svg`) using the geometric DG mark on `#0a0a0a`, same asset as the nav
+Geometric interlocking DG from `/brand-drafts/logo-dg-geometric-clear.png`.
+Favicon uses the same mark.
 
 ## Nav
 
-- At rest: transparent, no blur, no chrome. Sits over the hero
-- On scroll (`scrollY > 28`): soft canvas fade behind an inset island
-- Island: `--color-surface` at ~82% with 18px blur, light hairline, inset highlight only (no drop shadow)
-- Fluid side inset (`clamp(0.9rem, 3.2vw, 2.25rem)`) so the bar never reads full-bleed; fade stays light so those gaps stay visible
-- Section links hide below 900px; five icon actions stay
+56px sticky bar, `max-w-3xl`, text links. 1px underline follows the active
+section. GitHub as a word. Theme toggle is a ghost icon. No island, no icon
+row, no announcement chip.
 
 ## Hero
 
-- First viewport is hero-only (announcement, headline, subhead, CTAs, scroll cue)
-- Workbench and proof sections begin below with intentional vertical gap
-## Spacing
+Left aligned under the nav. Not a full viewport. Headline, one subhead, two
+text links (work, resume). No pill, no word stagger, no scroll cue.
 
-4-point named scale in `src/index.css` / Tailwind `@theme`. Prefer semantic
-utility classes over raw rem values.
+## Work
+
+Stacked editorial entries. Title, body, full stack string, screenshot.
+Hover scales the image `1.015`. No equal-height cards, no tech chips.
+
+## Activity
+
+Live contribution graph. Count-up on the yearly total. Skeleton while loading.
+No card chrome.
+
+## Proof
+
+Education and experience as `ProofRow`: title, detail, dates, body. Skills as
+a two-column definition list of comma-separated names. No icon badges.
+
+## Contact
+
+Footer only. Hiring question, relocate line, email as a text link. Socials as
+words.
 
 ## Motion
 
-- Easings: `--ease-out: cubic-bezier(0.16, 1, 0.3, 1)`; short micro `120–220ms`
-- Reveal: hero word stagger; section fade-up via `Reveal`
-- Reduced-motion: skip stagger (`hero-skip-intro`), opacity-only or instant show
+Three beats only:
 
-## Microinteractions stance
+1. Nav underline (`layoutId`)
+2. Contribution count-up
+3. Project image hover scale
 
-- Silent success; no celebratory toasts
-- Primary CTA: white fill pill on dark canvas
-- Secondary CTA: ghost pill with hairline ring
-- Focus: 2px accent outline, offset 3px, never animated
-
-## CTA voice
-
-- Primary: white background, near-black text, full pill (`9999px`), height 44px
-- Secondary: transparent, white text, `box-shadow: 0 0 0 1px rgba(255,255,255,0.15)`
-- Active: `scale(0.98)`
-
-## Page rhythm
-
-1. Translucent N1b nav (clear over the hero; on scroll, canvas fade + inset surface island)
-2. Centered hero with announcement chip, word-stagger headline, two CTAs
-3. Workbench mosaic (`#work`) — current focus panel, then shipped project cards
-4. Activity (`#activity`) — GitHub contribution heatmap in accent blue
-5. Education · Skills · Experience on dark surfaces
-6. Compact contact finale + footer rule
+Respect `prefers-reduced-motion`. No section blur, no word stagger.
 
 ## What pages MUST share
 
-- Dark canvas and surface tokens
-- Bricolage + Hanken pairing
-- White primary / ghost secondary CTA voice
-- Accent blue used sparingly (≤ ~5% of a viewport)
-- No fake browser chrome; real project screenshots only
-
-## What pages MAY differ on
-
-- Mosaic panel count and spans
-- Section header copy
+- Geist on a zinc canvas
+- `max-w-3xl` column, `px-6`
+- Sentence-case headings
+- Accent blue only on the heatmap
+- Real project screenshots, no fake browser chrome
 
 ## Provenance
 
 - studied: yes
-- DNA-source: url — https://x.ai/
-- Ported from: samehere `feat/zero-to-internship` `.landing-xai` tokens
-- Portfolio identity retained: Bricolage Grotesque + Hanken Grotesk
+- DNA-source: https://shadcn.com/
+- Motion cues from https://transitions.dev/ and https://www.inspora.design/
+- Identity retained: DG mark, heatmap blue, existing copy
