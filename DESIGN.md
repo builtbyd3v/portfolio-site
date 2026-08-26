@@ -5,79 +5,68 @@ Do not regenerate per section.
 
 ## Genre
 
-swiss product-index
+personal index
 
 ## Macrostructure
 
-Type-led recruiter portfolio in the shadcn.com family: sticky text nav, left
-aligned statement hero, stacked work, then denser proof, compact contact.
+https://shadcn.com/ — left aligned 26rem column, slash header, bio,
+underlined project titles, system-gray buttons, no sticky nav.
 
 ## Theme
 
-Light default. Dark via `html.dark`. Zinc scale from shadcn nova.
+Light default is white. Dark is black via `html.dark`.
 
-- Type: Geist Variable
-- Radius: `0.625rem`
+- Type: Inter Variable, `text-sm`
+- Column: `max-w-104` (26rem), padding `p-6 md:p-24`
+- Block gap: `gap-12`
 - Accent: `#0075de` on the GitHub heatmap only
-- Background / foreground / muted / border: shadcn zinc tokens in `src/index.css`
+- Buttons: `#e0e0e0` fill, `#919191` border, black text. No radius.
 
-## Brand mark
+## Brand
 
-Geometric interlocking DG from `/brand-drafts/logo-dg-geometric-clear.png`.
-Favicon uses the same mark.
+Page uses the word "Dev Goswami", not the DG mark. Favicon stays the
+geometric DG from `/brand-drafts`.
 
-## Nav
+## Header
 
-56px sticky bar, `max-w-3xl`, text links. 1px underline follows the active
-section. GitHub as a word. Theme toggle is a ghost icon. No island, no icon
-row, no announcement chip.
+`Dev Goswami / github / x / linkedin / theme`
 
-## Hero
+Medium weight. Slashes between. Theme is a text control, not an icon.
 
-Left aligned under the nav. Not a full viewport. Headline, one subhead, two
-text links (work, resume). No pill, no word stagger, no scroll cue.
+## Intro
 
-## Work
+One `leading-loose` paragraph. Resume is a system-gray button. No hero
+headline, no pills, no full viewport.
 
-Stacked editorial entries. Title, body, full stack string, screenshot.
-Hover scales the image `1.015`. No equal-height cards, no tech chips.
+## Entries
+
+Each block is an underlined `text-base font-medium` title plus
+`text-sm leading-relaxed` body. Live work wraps the block and may
+include a "Visit site" system button.
 
 ## Activity
 
-Live contribution graph. Count-up on the yearly total. Skeleton while loading.
-No card chrome.
-
-## Proof
-
-Education and experience as `ProofRow`: title, detail, dates, body. Skills as
-a two-column definition list of comma-separated names. No icon badges.
+`github` title links to the profile. Heatmap sits under it and scrolls
+inside the column.
 
 ## Contact
 
-Footer only. Hiring question, relocate line, email as a text link. Socials as
-words.
+Underlined `contact` heading, internship line, mailto.
 
 ## Motion
 
-Three beats only:
-
-1. Nav underline (`layoutId`)
-2. Contribution count-up
-3. Project image hover scale
-
-Respect `prefers-reduced-motion`. No section blur, no word stagger.
+Contribution count-up only. Respect `prefers-reduced-motion`.
 
 ## What pages MUST share
 
-- Geist on a zinc canvas
-- `max-w-3xl` column, `px-6`
-- Sentence-case headings
-- Accent blue only on the heatmap
-- Real project screenshots, no fake browser chrome
+- Inter on white/black
+- 26rem left column with large desktop padding
+- Always-on underlines on titles
+- System-gray buttons
+- No sticky nav, no cards, no icon row
 
 ## Provenance
 
 - studied: yes
 - DNA-source: https://shadcn.com/
-- Motion cues from https://transitions.dev/ and https://www.inspora.design/
-- Identity retained: DG mark, heatmap blue, existing copy
+- Identity retained: copy, heatmap blue, favicon

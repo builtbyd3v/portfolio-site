@@ -88,38 +88,26 @@ export default function ContributionMap() {
 
   return (
     <div>
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          {data ? (
-            <p className="text-3xl font-semibold tracking-tight">
-              <CountPop value={data.total} />
-            </p>
-          ) : error ? (
-            <p className="text-sm text-muted-foreground">
-              Could not load the live graph.
-            </p>
-          ) : (
-            <Skeleton className="h-9 w-28" />
-          )}
-          <p className="mt-1 text-sm text-muted-foreground">
-            contributions in the last year
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        {data ? (
+          <p className="font-medium">
+            <CountPop value={data.total} />
           </p>
-        </div>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-          {streak > 0 ? <span>{formatCount(streak)}-day streak</span> : null}
-          <a
-            href={CONTACT.github}
-            target="_blank"
-            rel="noreferrer"
-            className="text-foreground underline-offset-4 hover:underline"
-          >
-            @{USER}
-          </a>
-        </div>
+        ) : error ? (
+          <p className="text-neutral-600 dark:text-neutral-400">
+            Could not load the live graph.
+          </p>
+        ) : (
+          <Skeleton className="h-4 w-16" />
+        )}
+        <p className="text-neutral-600 dark:text-neutral-400">
+          contributions in the last year
+          {streak > 0 ? ` · ${formatCount(streak)}-day streak` : null}
+        </p>
       </div>
 
       {error && !data ? (
-        <p className="mt-4 text-sm text-muted-foreground">
+            <p className="mt-4 text-neutral-600 dark:text-neutral-400">
           <a href={CONTACT.github} target="_blank" rel="noreferrer">
             Open the GitHub profile
           </a>{' '}
@@ -183,7 +171,7 @@ export default function ContributionMap() {
       )}
 
       <div
-        className="mt-4 flex items-center justify-end gap-1 text-[11px] text-muted-foreground"
+        className="mt-4 flex items-center justify-end gap-1 text-[11px] text-neutral-600 dark:text-neutral-400"
         aria-hidden
       >
         <span className="mr-1">Less</span>
