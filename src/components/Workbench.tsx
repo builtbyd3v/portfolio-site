@@ -63,7 +63,9 @@ function ProjectPanel({
         {project.href && (
           <div className="workbench-panel-cta">
             <span>{project.cta ?? 'Visit site'}</span>
-            <span aria-hidden>→</span>
+            <span aria-hidden className="cta-arrow">
+              →
+            </span>
           </div>
         )}
       </div>

@@ -65,7 +65,9 @@ export default function Hero() {
           <a href="#contact" className="hero-announce">
             <span>Summer 2027</span>
             Software engineer intern
-            <span aria-hidden>→</span>
+            <span aria-hidden className="cta-arrow">
+              →
+            </span>
           </a>
         </div>
 

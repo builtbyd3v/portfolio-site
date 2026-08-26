@@ -60,9 +60,20 @@ utility classes over raw rem values.
 
 ## Motion
 
-- Easings: `--ease-out: cubic-bezier(0.16, 1, 0.3, 1)`; short micro `120–220ms`
-- Reveal: hero word stagger; section fade-up via `Reveal`
-- Reduced-motion: skip stagger (`hero-skip-intro`), opacity-only or instant show
+- Easings: `--ease-out: cubic-bezier(0.16, 1, 0.3, 1)`; UI motion under 300ms
+  except hero intro and contribution count-up
+- Hero: word stagger with blur (transitions.dev texts reveal)
+- Nav: sliding pill follows the active section (transitions.dev tabs)
+- Work: equal project cards; light image scale and CTA chevron on hover
+- Activity: count-up, skeleton-to-graph fade, heatmap tile hover
+- Skills: three panels always visible (Languages, Frameworks, Tools)
+- Reduced-motion: skip intro, no pill, no count-up, no tile scale
+
+## Provenance (motion)
+
+- https://www.inspora.design/ and https://transitions.dev/ for hover and stagger cues
+- https://x.com/eptwts/status/2092298910190448727 resource list (purpose from
+  Emil Kowalski: animate with a reason, keep UI motion fast)
 
 ## Microinteractions stance
 
