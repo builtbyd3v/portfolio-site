@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { animate, useMotionValue, useReducedMotion } from 'motion/react'
 import { CONTACT } from '../data/content'
 import {
   currentStreak,
@@ -32,6 +33,30 @@ function dayLabel(day: ContributionDay) {
   return `${formatCount(day.count)} ${noun} on ${pretty}`
 }
 
+function CountPop({ value }: { value: number }) {
+  const reduce = useReducedMotion()
+  const motionValue = useMotionValue(0)
+  const [text, setText] = useState('0')
+
+  useEffect(() => {
+    if (reduce) return
+    const controls = animate(motionValue, value, {
+      duration: 0.85,
+      ease: [0.16, 1, 0.3, 1],
+    })
+    const unsubscribe = motionValue.on('change', (latest) => {
+      setText(formatCount(Math.round(latest)))
+    })
+    return () => {
+      controls.stop()
+      unsubscribe()
+    }
+  }, [motionValue, reduce, value])
+
+  if (reduce) return <strong>{formatCount(value)}</strong>
+  return <strong>{text}</strong>
+}
+
 export default function ContributionMap() {
   const [data, setData] = useState<ContributionData | null>(null)
   const [error, setError] = useState(false)
@@ -61,7 +86,7 @@ export default function ContributionMap() {
   }, [data])
 
   return (
-    <div className="contrib-panel">
+    <div className={`contrib-panel${data ? ' is-ready' : ''}`}>
       <div className="contrib-head">
         <div>
           <p className="contrib-kicker">
@@ -71,13 +96,12 @@ export default function ContributionMap() {
           <p className="contrib-total">
             {data ? (
               <>
-                <strong>{formatCount(data.total)}</strong> contributions in the
-                last year
+                <CountPop value={data.total} /> contributions in the last year
               </>
             ) : error ? (
               'Could not load the live graph.'
             ) : (
-              'Loading contributions…'
+              <span className="contrib-total-skel">Loading contributions…</span>
             )}
           </p>
         </div>

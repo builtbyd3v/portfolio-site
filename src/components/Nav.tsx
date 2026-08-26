@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
 import { CONTACT } from '../data/content'
 import BrandLink from './BrandLink'
 import {
@@ -54,6 +55,7 @@ const ACTIONS = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState('')
+  const reduce = useReducedMotion()
 
   useEffect(() => {
     const onScroll = () => {
@@ -85,7 +87,14 @@ export default function Nav() {
                 href={link.href}
                 className={isActive ? 'is-active' : undefined}
               >
-                {link.label}
+                {isActive && !reduce ? (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="nav-pill"
+                    transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                  />
+                ) : null}
+                <span>{link.label}</span>
               </a>
             )
           })}
