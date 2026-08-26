@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
-import { CONTACT } from '../data/content'
+import { animate, useMotionValue, useReducedMotion } from 'motion/react'
+import { CONTACT } from '@/data/content'
 import {
   currentStreak,
   fetchContributions,
@@ -8,8 +9,9 @@ import {
   weeksFromDays,
   type ContributionData,
   type ContributionDay,
-} from '../lib/github-contributions'
-import { GitHubIcon } from '../icons'
+} from '@/lib/github-contributions'
+import { Skeleton } from '@/components/ui/skeleton'
+import { cn } from '@/lib/utils'
 
 const USER =
   CONTACT.github.replace(/\/$/, '').split('/').pop() ?? 'builtbyd3v'
@@ -30,6 +32,30 @@ function dayLabel(day: ContributionDay) {
   if (day.count === 0) return `No contributions on ${pretty}`
   const noun = day.count === 1 ? 'contribution' : 'contributions'
   return `${formatCount(day.count)} ${noun} on ${pretty}`
+}
+
+function CountPop({ value }: { value: number }) {
+  const reduce = useReducedMotion()
+  const motionValue = useMotionValue(0)
+  const [text, setText] = useState('0')
+
+  useEffect(() => {
+    if (reduce) return
+    const controls = animate(motionValue, value, {
+      duration: 0.85,
+      ease: [0.16, 1, 0.3, 1],
+    })
+    const unsubscribe = motionValue.on('change', (latest) => {
+      setText(formatCount(Math.round(latest)))
+    })
+    return () => {
+      controls.stop()
+      unsubscribe()
+    }
+  }, [motionValue, reduce, value])
+
+  if (reduce) return <span>{formatCount(value)}</span>
+  return <span>{text}</span>
 }
 
 export default function ContributionMap() {
@@ -61,46 +87,27 @@ export default function ContributionMap() {
   }, [data])
 
   return (
-    <div className="contrib-panel">
-      <div className="contrib-head">
-        <div>
-          <p className="contrib-kicker">
-            <span aria-hidden className="workbench-stage-dot workbench-stage-dot-live" />
-            GitHub
+    <div>
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        {data ? (
+          <p className="font-medium">
+            <CountPop value={data.total} />
           </p>
-          <p className="contrib-total">
-            {data ? (
-              <>
-                <strong>{formatCount(data.total)}</strong> contributions in the
-                last year
-              </>
-            ) : error ? (
-              'Could not load the live graph.'
-            ) : (
-              'Loading contributions…'
-            )}
+        ) : error ? (
+          <p className="text-neutral-600 dark:text-neutral-400">
+            Could not load the live graph.
           </p>
-        </div>
-        <div className="contrib-meta">
-          {streak > 0 && (
-            <span>
-              {formatCount(streak)}-day streak
-            </span>
-          )}
-          <a
-            href={CONTACT.github}
-            target="_blank"
-            rel="noreferrer"
-            className="contrib-profile"
-          >
-            <GitHubIcon className="contrib-profile-icon" />
-            @{USER}
-          </a>
-        </div>
+        ) : (
+          <Skeleton className="h-4 w-16" />
+        )}
+        <p className="text-neutral-600 dark:text-neutral-400">
+          contributions in the last year
+          {streak > 0 ? ` · ${formatCount(streak)}-day streak` : null}
+        </p>
       </div>
 
       {error && !data ? (
-        <p className="contrib-fallback">
+            <p className="mt-4 text-neutral-600 dark:text-neutral-400">
           <a href={CONTACT.github} target="_blank" rel="noreferrer">
             Open the GitHub profile
           </a>{' '}
@@ -109,7 +116,7 @@ export default function ContributionMap() {
       ) : (
         <div
           ref={scrollRef}
-          className="contrib-scroll"
+          className="contrib-scroll mt-6"
           tabIndex={0}
           aria-label="GitHub contribution calendar"
         >
@@ -144,9 +151,11 @@ export default function ContributionMap() {
                 return (
                   <span
                     key={`${weekIndex}-${row}`}
-                    className={`contrib-day${
-                      day ? '' : data ? ' is-pad' : ' is-loading'
-                    }${isToday ? ' is-today' : ''}`}
+                    className={cn(
+                      'contrib-day',
+                      !day && (data ? 'is-pad' : 'is-loading'),
+                      isToday && 'is-today',
+                    )}
                     style={{
                       gridColumn: weekIndex + 2,
                       gridRow: row + 2,
@@ -161,12 +170,15 @@ export default function ContributionMap() {
         </div>
       )}
 
-      <div className="contrib-legend" aria-hidden>
-        <span>Less</span>
+      <div
+        className="mt-4 flex items-center justify-end gap-1 text-[11px] text-neutral-600 dark:text-neutral-400"
+        aria-hidden
+      >
+        <span className="mr-1">Less</span>
         {[0, 1, 2, 3, 4].map((level) => (
           <span key={level} className="contrib-day" data-level={level} />
         ))}
-        <span>More</span>
+        <span className="ml-1">More</span>
       </div>
     </div>
   )
