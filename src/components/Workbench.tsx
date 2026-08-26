@@ -75,7 +75,7 @@ function ProjectPanel({
   const className = 'workbench-panel h-full'
 
   return (
-    <Reveal delayIndex={delayIndex} className="workbench-tile min-w-0 h-full">
+    <Reveal delayIndex={delayIndex} className="min-w-0 h-full">
       {project.href ? (
         <a
           href={project.href}

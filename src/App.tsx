@@ -5,7 +5,7 @@ import Workbench from './components/Workbench'
 import Footer from './components/Footer'
 import Reveal from './components/Reveal'
 import ProofCard from './components/ProofCard'
-import SkillTabs from './components/SkillTabs'
+import SkillBadge from './components/SkillBadge'
 import ContributionMap from './components/ContributionMap'
 
 function SectionHeader({ title, note }: { title: string; note?: string }) {
@@ -65,11 +65,20 @@ function App() {
 
           <section id="skills" className="section-block">
             <SectionHeader title="Skills" />
-            <Reveal>
-              <div className="skill-panel">
-                <SkillTabs groups={skills} />
-              </div>
-            </Reveal>
+            <div className="skills-grid">
+              {skills.map((group, i) => (
+                <Reveal key={group.label} delayIndex={i}>
+                  <div className="skill-panel">
+                    <p className="skill-panel-label">{group.label}</p>
+                    <div className="skill-panel-items">
+                      {group.items.map((item) => (
+                        <SkillBadge key={item.name} skill={item} />
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </section>
 
           <section id="experience" className="section-block">

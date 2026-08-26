@@ -753,22 +753,7 @@ a.workbench-panel:hover .cta-arrow {
 
 @media (min-width: 768px) {
   .workbench-grid-products {
-    display: flex;
-    align-items: stretch;
-    grid-template-columns: none;
-  }
-
-  .workbench-grid-products > .workbench-tile {
-    flex: 1 1 0;
-    min-width: 0;
-    transition: flex-grow 280ms var(--ease-out);
-  }
-}
-
-@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-  .workbench-grid-products > .workbench-tile:hover,
-  .workbench-grid-products > .workbench-tile:focus-within {
-    flex-grow: 1.55;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -935,7 +920,7 @@ a.workbench-panel:hover {
 }
 
 a.workbench-panel:hover .workbench-panel-media img {
-  transform: scale(1.06);
+  transform: scale(1.03);
 }
 
 .workbench-panel-body {
@@ -1088,58 +1073,8 @@ a.workbench-panel:hover .workbench-panel-media img {
   color: var(--color-muted);
 }
 
-.skill-tabs-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.skill-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.15rem;
-  width: fit-content;
-  padding: 0.2rem;
-  border: 1px solid var(--color-line);
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.skill-tabs button {
-  position: relative;
-  margin: 0;
-  border: 0;
-  border-radius: 9999px;
-  background: transparent;
-  padding: 0.4rem 0.9rem;
-  color: var(--color-muted);
-  font: inherit;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.skill-tabs button span {
-  position: relative;
-  z-index: 1;
-}
-
-.skill-tabs button.is-active {
-  color: var(--color-ink);
-}
-
-.skill-tab-pill {
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.1);
-  pointer-events: none;
-}
-
-.skill-tabs-wrap .skill-panel-items {
-  margin-top: 0;
-}
-
 .skill-panel-items {
+  margin-top: 0.9rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
@@ -1561,8 +1496,7 @@ a.workbench-panel:hover .workbench-panel-media img {
     transition: none;
   }
 
-  .site-nav-links a.is-active,
-  .skill-tabs button.is-active {
+  .site-nav-links a.is-active {
     background: rgba(255, 255, 255, 0.08);
   }
 
