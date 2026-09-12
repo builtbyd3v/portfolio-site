@@ -1,110 +1,103 @@
-import { experience, education, skills } from './data/content'
-import Nav from './components/Nav'
-import Hero from './components/Hero'
-import Workbench from './components/Workbench'
-import Footer from './components/Footer'
-import Reveal from './components/Reveal'
-import ProofCard from './components/ProofCard'
+import {
+  CONTACT,
+  projects,
+  experienceSoon,
+  education,
+  skills,
+} from './data/content'
+import Layout from './components/Layout'
+import Section from './components/Section'
+import Entry from './components/Entry'
 import SkillBadge from './components/SkillBadge'
-import ContributionMap from './components/ContributionMap'
+import AboutPortrait from './components/AboutPortrait'
+import ContributionGraph from './components/ContributionGraph'
 
-function SectionHeader({ title, note }: { title: string; note?: string }) {
-  return (
-    <Reveal className="section-header">
-      <h2>{title}</h2>
-      {note && <p>{note}</p>}
-      <div className="section-rule" />
-    </Reveal>
-  )
-}
-
-function App() {
+export default function App() {
   return (
     <>
-      <Nav />
       <span id="top" />
-      <main>
-        <Hero />
+      <Layout>
+        <section id="about" className="about-block pt-2 pb-8">
+          <div className="about-copy">
+            <p className="max-w-[520px] text-[15px] leading-relaxed text-soft">
+              Software engineering student at Western Governors University in{' '}
+              <span className="accent-text">{CONTACT.location}</span>. I build
+              full-stack web apps, sometimes with AI in the loop when the
+              project needs it.
+            </p>
+            <p className="mt-5 max-w-[520px] text-[15px] leading-relaxed text-soft">
+              I work mostly in Next.js, TypeScript, Tailwind, and PostgreSQL.
+              Right now that means CodePath, the WGU degree, and a Summer 2027
+              internship search.
+            </p>
+          </div>
+          <AboutPortrait />
+        </section>
 
-        <div className="section-shell section-shell-work">
-          <Workbench />
-        </div>
+        <Section id="projects" title="Projects">
+          {projects.map((project) => (
+            <Entry key={project.title} period={project.status}>
+              {project.href ? (
+                <a className="text-link text-[15px]" href={project.href} target="_blank" rel="noreferrer">
+                  {project.title}
+                </a>
+              ) : (
+                <h3 className="text-[15px] font-normal text-ink">
+                  {project.title}
+                </h3>
+              )}
+              <p className="mt-1 text-[13px] text-faint">{project.meta}</p>
+              <p className="mt-2 max-w-[520px] text-[14px] leading-relaxed text-soft">
+                {project.body}
+              </p>
+            </Entry>
+          ))}
+        </Section>
 
-        <div className="section-shell">
-          <section id="activity" className="section-block">
-            <SectionHeader
-              title="Activity"
-              note="GitHub, last 12 months."
-            />
-            <Reveal>
-              <ContributionMap />
-            </Reveal>
-          </section>
+        <Section id="activity" title="Activity">
+          <ContributionGraph />
+        </Section>
 
-          <section id="education" className="section-block">
-            <SectionHeader
-              title="Education"
-              note="WGU and CodePath."
-            />
-            <div className="proof-grid proof-grid-single">
-              {education.map((e, i) => (
-                <ProofCard
-                  key={e.org}
-                  period={e.period}
-                  eyebrow="Education"
-                  title={e.org}
-                  detail={e.detail}
-                  delayIndex={i}
-                  featured
-                >
-                  <p>{e.body}</p>
-                </ProofCard>
-              ))}
-            </div>
-          </section>
+        <Section id="skills" title="Skills">
+          <dl className="flex flex-col gap-7">
+            {skills.map((group) => (
+              <div key={group.label}>
+                <dt className="skill-kicker text-[11px] font-medium tracking-[0.08em] uppercase">
+                  {group.label}
+                </dt>
+                <dd className="mt-3 flex flex-wrap gap-1.5">
+                  {group.items.map((item) => (
+                    <SkillBadge key={item.name} skill={item} />
+                  ))}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Section>
 
-          <section id="skills" className="section-block">
-            <SectionHeader title="Skills" />
-            <div className="skills-grid">
-              {skills.map((group, i) => (
-                <Reveal key={group.label} delayIndex={i}>
-                  <div className="skill-panel">
-                    <p className="skill-panel-label">{group.label}</p>
-                    <div className="skill-panel-items">
-                      {group.items.map((item) => (
-                        <SkillBadge key={item.name} skill={item} />
-                      ))}
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </section>
+        <Section id="education" title="Education">
+          {education.map((item) => (
+            <Entry key={item.org} period={item.period}>
+              <h3 className="text-[15px] font-normal text-ink">{item.org}</h3>
+              <p className="mt-1 text-[13px] text-faint">{item.detail}</p>
+              <p className="mt-2 max-w-[520px] text-[14px] leading-relaxed text-soft">
+                {item.body}
+              </p>
+            </Entry>
+          ))}
+        </Section>
 
-          <section id="experience" className="section-block">
-            <SectionHeader title="Experience" />
-            <div className="proof-grid proof-grid-single">
-              {experience.map((e, i) => (
-                <ProofCard
-                  key={e.org}
-                  period={e.period}
-                  eyebrow="Experience"
-                  title={`${e.role}`}
-                  detail={e.org}
-                  delayIndex={i}
-                  featured
-                >
-                  <p>{e.body}</p>
-                </ProofCard>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        <Footer />
-      </main>
+        <Section id="experience" title="Experience">
+          <Entry period={experienceSoon.period}>
+            <h3 className="text-[15px] font-normal text-ink">
+              {experienceSoon.title}
+            </h3>
+            <p className="mt-2 max-w-[520px] text-[14px] leading-relaxed text-soft">
+              {experienceSoon.body}
+            </p>
+          </Entry>
+        </Section>
+      </Layout>
     </>
   )
 }
-
-export default App

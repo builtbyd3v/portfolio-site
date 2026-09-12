@@ -11,50 +11,38 @@ export type Project = {
   title: string
   meta: string
   status: string
-  stage: string
   body: string
   href?: string
-  image?: string
-  cta?: string
-  tagline?: string
 }
 
 export const projects: Project[] = [
   {
     title: 'samehere',
     meta: 'Next.js · TypeScript · React · PostgreSQL · Supabase · Stripe · Tailwind CSS · Vercel',
-    status: 'Live',
-    stage: 'Live',
+    status: 'Jun 2026–Present',
     body: 'Invite-only student networking app. Auth, profiles, feed, realtime DMs, clubs, notifications, and an AI jobs board. Postgres and Supabase with RLS. Stripe for checkout. I write the spec, review the diff, and ship the parts I would merge.',
     href: 'https://samehere.dev',
-    image: '/projects/samehere.png',
   },
   {
     title: 'Aced',
     meta: 'React · TypeScript · Tailwind CSS · Claude API · Vercel',
-    status: 'Shipped',
-    stage: 'Shipped',
+    status: 'Mar 2026–Apr 2026',
     body: 'Mock interviews from a job description. Paste the JD, answer five questions for that role, get scored feedback on each answer.',
     href: 'https://aced-dev.vercel.app',
-    image: '/projects/aced.png',
   },
-]
-
-export type Experience = {
-  role: string
-  org: string
-  period: string
-  body: string
-}
-
-export const experience: Experience[] = [
   {
-    role: 'Freelance Web Developer',
-    org: 'Saddle River Roofing',
-    period: 'Aug 2026-Present',
-    body: 'Specifying and building a new Next.js site for a local roofing company, replacing saddleriverroofing.com. TypeScript, React, and Tailwind. Component-based, mobile-responsive.',
+    title: 'Sona',
+    meta: 'React · Express · Node.js · PostgreSQL',
+    status: 'Jun 2026–Jul 2026',
+    body: 'CodePath team project. Six of us shipped a full-stack artist hub for profiles, follows, concerts, and merch. I built directory/CRUD and follow flows across the React frontend and Express/PostgreSQL API.',
   },
 ]
+
+export const experienceSoon = {
+  period: 'Coming soon',
+  title: 'The first software role goes here.',
+  body: 'Internship and early-career software work will live in this section. Until then, the record is the products and coursework on this page.',
+}
 
 export type Education = {
   org: string
@@ -73,12 +61,17 @@ export const education: Education[] = [
   {
     org: 'CodePath',
     detail: 'Software Engineering Program · Honors in WEB103, AI110',
-    period: 'Jun 2026-Present',
+    period: 'Jun 2026–Present',
     body: 'Finished WEB103, AI110, and TIP101. Full-stack work in React, Node.js, Express, PostgreSQL, and REST APIs. TIP102 and AI201 continue in Fall 2026.',
   },
 ]
 
-export type Skill = { name: string; slug?: string; color?: string }
+export type Skill = {
+  name: string
+  slug?: string
+  color?: string
+  icon?: string
+}
 export type SkillGroup = { label: string; items: Skill[] }
 
 export const skills: SkillGroup[] = [
@@ -97,9 +90,7 @@ export const skills: SkillGroup[] = [
     label: 'Frameworks',
     items: [
       { name: 'React', slug: 'react', color: '61DAFB' },
-      { name: 'Next.js', slug: 'nextdotjs', color: 'FFFFFF' },
-      { name: 'Node.js', slug: 'nodedotjs', color: '5FA04E' },
-      { name: 'Express', slug: 'express', color: 'FFFFFF' },
+      { name: 'Next.js', slug: 'nextdotjs', color: '000000' },
       { name: 'Tailwind CSS', slug: 'tailwindcss', color: '06B6D4' },
     ],
   },
@@ -109,10 +100,10 @@ export const skills: SkillGroup[] = [
       { name: 'Git', slug: 'git', color: 'F05032' },
       { name: 'PostgreSQL', slug: 'postgresql', color: '4169E1' },
       { name: 'Supabase', slug: 'supabase', color: '3FCF8E' },
-      { name: 'Vercel', slug: 'vercel', color: 'FFFFFF' },
-      { name: 'Stripe', slug: 'stripe', color: '635BFF' },
+      { name: 'Vercel', slug: 'vercel', color: '000000' },
       { name: 'Claude Code', slug: 'claude', color: 'D97757' },
-      { name: 'Cursor', slug: 'cursor', color: 'FFFFFF' },
+      { name: 'Codex', icon: '/icons/codex.svg' },
+      { name: 'Cursor', slug: 'cursor', color: '000000' },
     ],
   },
 ]

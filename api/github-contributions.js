@@ -1,6 +1,6 @@
 const USER = 'builtbyd3v'
 const GITHUB_URL = `https://github.com/users/${USER}/contributions`
-const FALLBACK_URL = `https://github-contributions-api.jogruber.de/v4/${USER}?y=last`
+const FALLBACK_URL = `https://github-contributions-api.jogruber.de/v4/${USER}`
 
 function clampLevel(value) {
   const n = Number(value)
@@ -69,8 +69,8 @@ async function fromGithub() {
   return parsed
 }
 
-async function fromFallback() {
-  const response = await fetch(FALLBACK_URL, {
+async function fromFallback(year) {
+  const response = await fetch(`${FALLBACK_URL}?y=${year}`, {
     headers: { Accept: 'application/json' },
   })
   if (!response.ok) throw new Error(`fallback ${response.status}`)
@@ -81,12 +81,13 @@ async function fromFallback() {
   return data
 }
 
-export default async function handler(_req, res) {
+export default async function handler(req, res) {
+  const year = Number(req.query?.year) || new Date().getFullYear()
   try {
     json(res, 200, await fromGithub())
   } catch {
     try {
-      json(res, 200, await fromFallback())
+      json(res, 200, await fromFallback(year))
     } catch {
       json(res, 502, { error: 'contributions_unavailable' })
     }

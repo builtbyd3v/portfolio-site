@@ -10,8 +10,8 @@ export type ContributionData = {
 }
 
 const FALLBACK_URL =
-  'https://github-contributions-api.jogruber.de/v4/{user}?y=last'
-const CACHE_KEY = 'gh-contrib-v1'
+  'https://github-contributions-api.jogruber.de/v4/{user}?y={year}'
+const CACHE_KEY = 'gh-contrib-v2'
 const CACHE_MS = 60 * 60 * 1000
 
 function clampLevel(value: unknown): number {
@@ -60,9 +60,31 @@ function normalize(raw: unknown): ContributionData | null {
   return { total, contributions }
 }
 
-function readCache(): ContributionData | null {
+export function calendarYearDays(
+  days: ContributionDay[],
+  year: number,
+): ContributionDay[] {
+  const byDate = new Map(days.map((day) => [day.date, day]))
+  const filled: ContributionDay[] = []
+  const cursor = new Date(year, 0, 1)
+  const end = new Date(year, 11, 31)
+
+  while (cursor <= end) {
+    const date = localIso(cursor)
+    filled.push(byDate.get(date) ?? { date, count: 0, level: 0 })
+    cursor.setDate(cursor.getDate() + 1)
+  }
+
+  return filled
+}
+
+function cacheKey(year: number) {
+  return `${CACHE_KEY}-${year}`
+}
+
+function readCache(year: number): ContributionData | null {
   try {
-    const raw = sessionStorage.getItem(CACHE_KEY)
+    const raw = sessionStorage.getItem(cacheKey(year))
     if (!raw) return null
     const parsed = JSON.parse(raw) as { at?: number; data?: unknown }
     if (typeof parsed.at !== 'number' || Date.now() - parsed.at > CACHE_MS) {
@@ -74,10 +96,10 @@ function readCache(): ContributionData | null {
   }
 }
 
-function writeCache(data: ContributionData) {
+function writeCache(year: number, data: ContributionData) {
   try {
     sessionStorage.setItem(
-      CACHE_KEY,
+      cacheKey(year),
       JSON.stringify({ at: Date.now(), data }),
     )
   } catch {
@@ -88,13 +110,14 @@ function writeCache(data: ContributionData) {
 export async function fetchContributions(
   user: string,
   signal: AbortSignal,
+  year = new Date().getFullYear(),
 ): Promise<ContributionData> {
-  const cached = readCache()
+  const cached = readCache(year)
   if (cached) return cached
 
   const sources = [
-    '/api/github-contributions',
-    FALLBACK_URL.replace('{user}', user),
+    `/api/github-contributions?year=${year}`,
+    FALLBACK_URL.replace('{user}', user).replace('{year}', String(year)),
   ]
   if (import.meta.env.DEV) sources.shift()
 
@@ -104,7 +127,7 @@ export async function fetchContributions(
       if (!response.ok) continue
       const data = normalize(await response.json())
       if (!data) continue
-      writeCache(data)
+      writeCache(year, data)
       return data
     } catch (error) {
       if (signal.aborted) throw error
@@ -178,20 +201,16 @@ const MONTHS = [
 export function monthLabels(weeks: (ContributionDay | null)[][]) {
   const labels: { weekIndex: number; label: string }[] = []
   let previousMonth = -1
-  let previousWeek = -10
 
   weeks.forEach((week, weekIndex) => {
-    const day = week.find((entry) => entry !== null)
-    if (!day) return
-    const month = Number(day.date.slice(5, 7)) - 1
-    if (month === previousMonth) return
-    if (weekIndex - previousWeek < 2 && labels.length > 0) {
+    for (const day of week) {
+      if (!day) continue
+      const month = Number(day.date.slice(5, 7)) - 1
+      if (month === previousMonth) continue
+      labels.push({ weekIndex, label: MONTHS[month] })
       previousMonth = month
-      return
+      break
     }
-    labels.push({ weekIndex, label: MONTHS[month] })
-    previousMonth = month
-    previousWeek = weekIndex
   })
 
   return labels
