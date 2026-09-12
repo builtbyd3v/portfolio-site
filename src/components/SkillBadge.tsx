@@ -20,7 +20,7 @@ export default function SkillBadge({ skill }: { skill: Skill }) {
         <img
           src={src}
           alt=""
-          className="h-4 w-4 rounded-[3px]"
+          className="h-4 w-4"
           loading="lazy"
           onError={(e) => {
             e.currentTarget.style.display = 'none'
