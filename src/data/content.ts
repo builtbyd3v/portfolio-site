@@ -62,7 +62,7 @@ export const education: Education[] = [
     org: 'CodePath',
     detail: 'Software Engineering Program · Honors in WEB103, AI110',
     period: 'Jun 2026–Aug 2026',
-    body: 'Finished WEB103, AI110, and TIP101. Full-stack work in React, Node.js, Express, PostgreSQL, and REST APIs.',
+    body: 'Completed WEB103 (Advanced Web Development), AI110 (Intro to AI Engineering), and TIP101 (Technical Interview Prep), with honors in WEB103 and AI110. Shipped full-stack projects using React, REST APIs, and PostgreSQL, and practiced code review, GitHub Issues, and pull-request workflows in a structured cohort.',
   },
 ]
 
