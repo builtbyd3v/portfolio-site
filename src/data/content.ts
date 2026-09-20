@@ -61,7 +61,7 @@ export const education: Education[] = [
   {
     org: 'CodePath',
     detail: 'Software Engineering Program · Honors in WEB103',
-    period: 'Jun 2026–Present',
+    period: 'Jun 2026–Aug 2026',
     body: 'Finished WEB103 and TIP101. Full-stack work in React, Node.js, Express, PostgreSQL, and REST APIs.',
   },
 ]
