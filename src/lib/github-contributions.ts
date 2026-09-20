@@ -11,8 +11,8 @@ export type ContributionData = {
 
 const FALLBACK_URL =
   'https://github-contributions-api.jogruber.de/v4/{user}?y={year}'
-const CACHE_KEY = 'gh-contrib-v2'
-const CACHE_MS = 60 * 60 * 1000
+const CACHE_KEY = 'gh-contrib-v3'
+const CACHE_MS = 15 * 60 * 1000
 
 function clampLevel(value: unknown): number {
   const n = Number(value)
@@ -21,16 +21,28 @@ function clampLevel(value: unknown): number {
   return Math.trunc(n)
 }
 
-function normalize(raw: unknown): ContributionData | null {
+function listedTotal(total: unknown, year: number): number {
+  if (typeof total === 'number') return total
+  if (!total || typeof total !== 'object') return Number.NaN
+  const record = total as Record<string, unknown>
+  const yearTotal = Number(record[String(year)])
+  if (Number.isFinite(yearTotal)) return yearTotal
+  const lastYear = Number(record.lastYear)
+  return Number.isFinite(lastYear) ? lastYear : Number.NaN
+}
+
+export function normalize(
+  raw: unknown,
+  year = new Date().getFullYear(),
+): ContributionData | null {
   if (!raw || typeof raw !== 'object') return null
   const record = raw as {
-    total?: { lastYear?: number } | number
+    total?: unknown
     contributions?: unknown
   }
-  if (!Array.isArray(record.contributions) || record.contributions.length < 300) {
-    return null
-  }
+  if (!Array.isArray(record.contributions)) return null
 
+  const prefix = `${year}-`
   const contributions: ContributionDay[] = record.contributions
     .map((entry) => {
       if (!entry || typeof entry !== 'object') return null
@@ -38,6 +50,7 @@ function normalize(raw: unknown): ContributionData | null {
       if (typeof day.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(day.date)) {
         return null
       }
+      if (!day.date.startsWith(prefix)) return null
       return {
         date: day.date,
         count: Math.max(0, Number(day.count) || 0),
@@ -49,12 +62,9 @@ function normalize(raw: unknown): ContributionData | null {
 
   if (contributions.length < 300) return null
 
-  const listedTotal =
-    typeof record.total === 'number'
-      ? record.total
-      : Number(record.total?.lastYear)
-  const total = Number.isFinite(listedTotal)
-    ? listedTotal
+  const fromPayload = listedTotal(record.total, year)
+  const total = Number.isFinite(fromPayload)
+    ? fromPayload
     : contributions.reduce((sum, day) => sum + day.count, 0)
 
   return { total, contributions }
@@ -79,7 +89,7 @@ export function calendarYearDays(
 }
 
 function cacheKey(year: number) {
-  return `${CACHE_KEY}-${year}`
+  return `${CACHE_KEY}-${year}-${localIso()}`
 }
 
 function readCache(year: number): ContributionData | null {
@@ -90,7 +100,7 @@ function readCache(year: number): ContributionData | null {
     if (typeof parsed.at !== 'number' || Date.now() - parsed.at > CACHE_MS) {
       return null
     }
-    return normalize(parsed.data)
+    return normalize(parsed.data, year)
   } catch {
     return null
   }
@@ -116,7 +126,7 @@ export async function fetchContributions(
   if (cached) return cached
 
   const sources = [
-    `/api/github-contributions?year=${year}`,
+    `/api/github-contributions?year=${year}&day=${localIso()}`,
     FALLBACK_URL.replace('{user}', user).replace('{year}', String(year)),
   ]
   if (import.meta.env.DEV) sources.shift()
@@ -125,7 +135,7 @@ export async function fetchContributions(
     try {
       const response = await fetch(url, { signal })
       if (!response.ok) continue
-      const data = normalize(await response.json())
+      const data = normalize(await response.json(), year)
       if (!data) continue
       writeCache(year, data)
       return data
