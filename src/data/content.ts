@@ -57,7 +57,7 @@ export const education: Education[] = [
     org: 'Western Governors University',
     detail: 'B.S. Software Engineering · 4.0 GPA',
     period: 'Expected Fall 2027',
-    body: 'Competency-based degree. Coursework: Data Structures and Algorithms I, Software Engineering, Front-End Web Development, Back-End Web Development, Java Fundamentals, Java Frameworks, Software Design and Quality Assurance, Software Security and Testing, Version Control, Introduction to Programming in Python.',
+    body: 'Competency-based degree. Coursework: Data Structures and Algorithms I, Front-End Web Development, Advanced Software Engineering, Discrete Mathematics I, Calculus I, Technical Communication, Version Control, Introduction to Systems Thinking.',
   },
   {
     org: 'CodePath',
