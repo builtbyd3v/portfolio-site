@@ -60,9 +60,9 @@ export const education: Education[] = [
   },
   {
     org: 'CodePath',
-    detail: 'Software Engineering Program · Honors in WEB103',
+    detail: 'Software Engineering Program · Honors in WEB103, AI110',
     period: 'Jun 2026–Aug 2026',
-    body: 'Finished WEB103 and TIP101. Full-stack work in React, Node.js, Express, PostgreSQL, and REST APIs.',
+    body: 'Finished WEB103, AI110, and TIP101. Full-stack work in React, Node.js, Express, PostgreSQL, and REST APIs.',
   },
 ]
 
