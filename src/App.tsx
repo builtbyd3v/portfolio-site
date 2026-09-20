@@ -27,8 +27,8 @@ export default function App() {
             </p>
             <p className="mt-5 max-w-[520px] text-[15px] leading-relaxed text-soft">
               I work mostly in Next.js, TypeScript, Tailwind, and PostgreSQL.
-              Right now that means CodePath, the WGU degree, and a Summer 2027
-              internship search.
+              Right now that means the WGU degree and a Summer 2027 internship
+              search.
             </p>
           </div>
           <AboutPortrait />
