@@ -80,9 +80,18 @@ export default function App() {
             <Entry key={item.org} period={item.period}>
               <h3 className="text-[15px] font-normal text-ink">{item.org}</h3>
               <p className="mt-1 text-[13px] text-faint">{item.detail}</p>
-              <p className="mt-2 max-w-[520px] text-[14px] leading-relaxed text-soft">
-                {item.body}
-              </p>
+              {item.body ? (
+                <p className="mt-2 max-w-[520px] text-[14px] leading-relaxed text-soft">
+                  {item.body}
+                </p>
+              ) : null}
+              {item.points ? (
+                <ul className="mt-2 max-w-[520px] list-disc space-y-1.5 pl-4 text-[14px] leading-relaxed text-soft">
+                  {item.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              ) : null}
             </Entry>
           ))}
         </Section>

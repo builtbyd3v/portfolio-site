@@ -48,7 +48,8 @@ export type Education = {
   org: string
   detail: string
   period: string
-  body: string
+  body?: string
+  points?: string[]
 }
 
 export const education: Education[] = [
@@ -56,13 +57,17 @@ export const education: Education[] = [
     org: 'Western Governors University',
     detail: 'B.S. Software Engineering · 4.0 GPA',
     period: 'Expected Fall 2027',
-    body: 'Competency-based degree. Coursework includes data structures and algorithms, discrete math, version control, systems thinking, and technical communication.',
+    body: 'Competency-based degree. Coursework: Data Structures and Algorithms I, Front-End Web Development, Advanced Software Engineering, Discrete Mathematics I, Calculus I, Technical Communication, Version Control, Introduction to Systems Thinking.',
   },
   {
     org: 'CodePath',
     detail: 'Software Engineering Program · Honors in WEB103, AI110',
     period: 'Jun 2026–Aug 2026',
-    body: 'Finished WEB103, AI110, and TIP101. Full-stack work in React, Node.js, Express, PostgreSQL, and REST APIs.',
+    points: [
+      'WEB103 Intermediate Web Development (Honors): built production-style full-stack apps with React, REST APIs, PostgreSQL, and cloud deployment; practiced code review and pull-request workflows.',
+      'AI110 Intro to AI and LLMs (Honors): applied prompt engineering and LLM API integration in apps, with attention to AI ethics and practical evaluation.',
+      'TIP101 Technical Interview Prep: practiced data structures and algorithms, timed problem solving, and clear technical communication for interviews.',
+    ],
   },
 ]
 
