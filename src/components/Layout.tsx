@@ -38,8 +38,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <footer id="contact" className="scroll-mt-8 border-t border-line py-14">
         <p className="max-w-[480px] text-[15px] text-soft">
-          Open to internships and early-career software roles. Email is the
-          fastest way to reach me.
+          Email is the fastest way to reach me.
         </p>
         <a href={`mailto:${CONTACT.email}`} className="mail-link mt-5 inline-block text-[15px] font-medium">
           {CONTACT.email}

@@ -1,7 +1,7 @@
 import {
   CONTACT,
   projects,
-  experienceSoon,
+  experience,
   education,
   skills,
 } from './data/content'
@@ -27,8 +27,8 @@ export default function App() {
             </p>
             <p className="mt-5 max-w-[520px] text-[15px] leading-relaxed text-soft">
               I work mostly in Next.js, TypeScript, Tailwind, and PostgreSQL.
-              Right now that means the WGU degree and a Summer 2027 internship
-              search.
+              Right now that means the WGU degree, expected Spring 2027, and
+              building products.
             </p>
           </div>
           <AboutPortrait />
@@ -97,14 +97,17 @@ export default function App() {
         </Section>
 
         <Section id="experience" title="Experience">
-          <Entry period={experienceSoon.period}>
-            <h3 className="text-[15px] font-normal text-ink">
-              {experienceSoon.title}
-            </h3>
-            <p className="mt-2 max-w-[520px] text-[14px] leading-relaxed text-soft">
-              {experienceSoon.body}
-            </p>
-          </Entry>
+          {experience.map((item) => (
+            <Entry key={item.org} period={item.period}>
+              <h3 className="text-[15px] font-normal text-ink">{item.org}</h3>
+              <p className="mt-1 text-[13px] text-faint">{item.detail}</p>
+              <ul className="mt-2 max-w-[520px] list-disc space-y-1.5 pl-4 text-[14px] leading-relaxed text-soft">
+                {item.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </Entry>
+          ))}
         </Section>
       </Layout>
     </>

@@ -20,7 +20,7 @@ export const projects: Project[] = [
     title: 'samehere',
     meta: 'Next.js · TypeScript · React · PostgreSQL · Supabase · Stripe · Tailwind CSS · Vercel',
     status: 'Jun 2026–Present',
-    body: 'Invite-only student networking app. Auth, profiles, feed, realtime DMs, clubs, notifications, and an AI jobs board. Postgres and Supabase with RLS. Stripe for checkout. I write the spec, review the diff, and ship the parts I would merge.',
+    body: 'Live on Vercel. Solo-built Next.js 16, React 19, and TypeScript app with auth, a stage-labeled feed, public portfolios, realtime DMs, search, and block/report. Supabase Auth, Postgres, Realtime, and Storage with RLS, versioned migrations, and an RLS regression suite. Claude Code and Cursor: write the spec, review the diff, test the flow, then ship. Stripe Checkout and signature-verified webhooks for Pro.',
     href: 'https://samehere.dev',
   },
   {
@@ -33,16 +33,29 @@ export const projects: Project[] = [
   {
     title: 'Sona',
     meta: 'React · Express · Node.js · PostgreSQL',
-    status: 'Jun 2026–Jul 2026',
-    body: 'CodePath team project. Six of us shipped a full-stack artist hub for profiles, follows, concerts, and merch. I built directory/CRUD and follow flows across the React frontend and Express/PostgreSQL API.',
+    status: 'Jul 2026–Aug 2026',
+    body: 'CodePath team project. Six of us shipped a full-stack artist hub for profiles, follows, concerts, and merch. I built artist directory/CRUD and follow/unfollow flows across the React frontend and Express/PostgreSQL API, using GitHub Issues and pull requests.',
   },
 ]
 
-export const experienceSoon = {
-  period: 'Coming soon',
-  title: 'The first software role goes here.',
-  body: 'Internship and early-career software work will live in this section. Until then, the record is the products and coursework on this page.',
+export type Experience = {
+  org: string
+  detail: string
+  period: string
+  points: string[]
 }
+
+export const experience: Experience[] = [
+  {
+    org: 'Chipotle Mexican Grill',
+    detail: 'Service Leader, Part Time · Gainesville, FL',
+    period: 'Jul 2021–Present',
+    points: [
+      'Lead high-volume shifts in a customer-facing environment; train crew on written food-safety and service standards so quality stays consistent under pressure.',
+      'Tightened station procedures and cut waste 15% while lifting throughput 20% through clearer checklists and faster problem resolution on the line.',
+    ],
+  },
+]
 
 export type Education = {
   org: string
@@ -56,7 +69,7 @@ export const education: Education[] = [
   {
     org: 'Western Governors University',
     detail: 'B.S. Software Engineering · 4.0 GPA',
-    period: 'Expected Fall 2027',
+    period: 'Expected Spring 2027',
     body: 'Competency-based degree. Coursework: Data Structures and Algorithms I, Front-End Web Development, Advanced Software Engineering, Discrete Mathematics I, Calculus I, Technical Communication, Version Control, Introduction to Systems Thinking.',
   },
   {
@@ -107,7 +120,6 @@ export const skills: SkillGroup[] = [
       { name: 'Supabase', slug: 'supabase', color: '3FCF8E' },
       { name: 'Vercel', slug: 'vercel', color: '000000' },
       { name: 'Claude Code', slug: 'claude', color: 'D97757' },
-      { name: 'Codex', icon: '/icons/codex.svg' },
       { name: 'Cursor', slug: 'cursor', color: '000000' },
     ],
   },
