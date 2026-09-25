@@ -20,7 +20,7 @@ export const projects: Project[] = [
     title: 'samehere',
     meta: 'Next.js · TypeScript · React · PostgreSQL · Supabase · Stripe · Tailwind CSS · Vercel',
     status: 'Jun 2026–Present',
-    body: 'Live on Vercel. Solo-built Next.js 16, React 19, and TypeScript app with auth, a stage-labeled feed, public portfolios, realtime DMs, search, and block/report. Supabase Auth, Postgres, Realtime, and Storage with RLS, versioned migrations, and an RLS regression suite. Claude Code and Cursor: write the spec, review the diff, test the flow, then ship. Stripe Checkout and signature-verified webhooks for Pro.',
+    body: 'Live student networking app. Auth, stage-labeled feed, public portfolios, realtime DMs, search, and block/report. Postgres and Supabase with RLS. Stripe for Pro. I write the spec, review the diff, and ship the parts I would merge.',
     href: 'https://samehere.dev',
   },
   {
