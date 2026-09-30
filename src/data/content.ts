@@ -49,9 +49,9 @@ export const experience: Experience[] = [
   {
     org: 'Chipotle Mexican Grill',
     detail: 'Service Leader, Part Time · Gainesville, FL',
-    period: 'Jul 2021–Present',
+    period: 'Jul 2021–Sep 2026',
     points: [
-      'Lead high-volume shifts in a customer-facing environment; train crew on written food-safety and service standards so quality stays consistent under pressure.',
+      'Led high-volume shifts in a customer-facing environment; trained crew on written food-safety and service standards so quality stayed consistent under pressure.',
       'Tightened station procedures and cut waste 15% while lifting throughput 20% through clearer checklists and faster problem resolution on the line.',
     ],
   },
