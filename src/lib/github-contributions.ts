@@ -10,8 +10,8 @@ export type ContributionData = {
 }
 
 const FALLBACK_URL =
-  'https://github-contributions-api.jogruber.de/v4/{user}?y={year}'
-const CACHE_KEY = 'gh-contrib-v3'
+  'https://github-contributions-api.jogruber.de/v4/{user}?y=last'
+const CACHE_KEY = 'gh-contrib-v4'
 const CACHE_MS = 15 * 60 * 1000
 
 function clampLevel(value: unknown): number {
@@ -21,20 +21,13 @@ function clampLevel(value: unknown): number {
   return Math.trunc(n)
 }
 
-function listedTotal(total: unknown, year: number): number {
+function listedTotal(total: unknown): number {
   if (typeof total === 'number') return total
   if (!total || typeof total !== 'object') return Number.NaN
-  const record = total as Record<string, unknown>
-  const yearTotal = Number(record[String(year)])
-  if (Number.isFinite(yearTotal)) return yearTotal
-  const lastYear = Number(record.lastYear)
-  return Number.isFinite(lastYear) ? lastYear : Number.NaN
+  return Number((total as Record<string, unknown>).lastYear)
 }
 
-export function normalize(
-  raw: unknown,
-  year = new Date().getFullYear(),
-): ContributionData | null {
+export function normalize(raw: unknown): ContributionData | null {
   if (!raw || typeof raw !== 'object') return null
   const record = raw as {
     total?: unknown
@@ -42,7 +35,6 @@ export function normalize(
   }
   if (!Array.isArray(record.contributions)) return null
 
-  const prefix = `${year}-`
   const contributions: ContributionDay[] = record.contributions
     .map((entry) => {
       if (!entry || typeof entry !== 'object') return null
@@ -50,7 +42,6 @@ export function normalize(
       if (typeof day.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(day.date)) {
         return null
       }
-      if (!day.date.startsWith(prefix)) return null
       return {
         date: day.date,
         count: Math.max(0, Number(day.count) || 0),
@@ -62,7 +53,7 @@ export function normalize(
 
   if (contributions.length < 300) return null
 
-  const fromPayload = listedTotal(record.total, year)
+  const fromPayload = listedTotal(record.total)
   const total = Number.isFinite(fromPayload)
     ? fromPayload
     : contributions.reduce((sum, day) => sum + day.count, 0)
@@ -70,46 +61,28 @@ export function normalize(
   return { total, contributions }
 }
 
-export function calendarYearDays(
-  days: ContributionDay[],
-  year: number,
-): ContributionDay[] {
-  const byDate = new Map(days.map((day) => [day.date, day]))
-  const filled: ContributionDay[] = []
-  const cursor = new Date(year, 0, 1)
-  const end = new Date(year, 11, 31)
-
-  while (cursor <= end) {
-    const date = localIso(cursor)
-    filled.push(byDate.get(date) ?? { date, count: 0, level: 0 })
-    cursor.setDate(cursor.getDate() + 1)
-  }
-
-  return filled
+function cacheKey() {
+  return `${CACHE_KEY}-${localIso()}`
 }
 
-function cacheKey(year: number) {
-  return `${CACHE_KEY}-${year}-${localIso()}`
-}
-
-function readCache(year: number): ContributionData | null {
+function readCache(): ContributionData | null {
   try {
-    const raw = sessionStorage.getItem(cacheKey(year))
+    const raw = sessionStorage.getItem(cacheKey())
     if (!raw) return null
     const parsed = JSON.parse(raw) as { at?: number; data?: unknown }
     if (typeof parsed.at !== 'number' || Date.now() - parsed.at > CACHE_MS) {
       return null
     }
-    return normalize(parsed.data, year)
+    return normalize(parsed.data)
   } catch {
     return null
   }
 }
 
-function writeCache(year: number, data: ContributionData) {
+function writeCache(data: ContributionData) {
   try {
     sessionStorage.setItem(
-      cacheKey(year),
+      cacheKey(),
       JSON.stringify({ at: Date.now(), data }),
     )
   } catch {
@@ -120,24 +93,22 @@ function writeCache(year: number, data: ContributionData) {
 export async function fetchContributions(
   user: string,
   signal: AbortSignal,
-  year = new Date().getFullYear(),
 ): Promise<ContributionData> {
-  const cached = readCache(year)
+  const cached = readCache()
   if (cached) return cached
 
   const sources = [
-    `/api/github-contributions?year=${year}&day=${localIso()}`,
-    FALLBACK_URL.replace('{user}', user).replace('{year}', String(year)),
+    `/api/github-contributions?day=${localIso()}`,
+    FALLBACK_URL.replace('{user}', user),
   ]
-  if (import.meta.env.DEV) sources.shift()
 
   for (const url of sources) {
     try {
       const response = await fetch(url, { signal })
       if (!response.ok) continue
-      const data = normalize(await response.json(), year)
+      const data = normalize(await response.json())
       if (!data) continue
-      writeCache(year, data)
+      writeCache(data)
       return data
     } catch (error) {
       if (signal.aborted) throw error

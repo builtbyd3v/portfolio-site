@@ -22,13 +22,13 @@ export default function App() {
             <p className="max-w-[520px] text-[15px] leading-relaxed text-soft">
               Software engineering student at Western Governors University in{' '}
               <span className="accent-text">{CONTACT.location}</span>. I build
-              full-stack web apps, sometimes with AI in the loop when the
-              project needs it.
+              full-stack and AI products with AI coding agents: I own the idea,
+              spec, and architecture, then direct the build, review every
+              change, and test each flow end to end.
             </p>
             <p className="mt-5 max-w-[520px] text-[15px] leading-relaxed text-soft">
-              I work mostly in Next.js, TypeScript, Tailwind, and PostgreSQL.
-              Right now that means the WGU degree, expected Spring 2027, and
-              building products.
+              Right now that means the WGU degree, expected Fall 2027,
+              hackathons, and learning Python backend fundamentals.
             </p>
           </div>
           <AboutPortrait />
@@ -47,9 +47,11 @@ export default function App() {
                 </h3>
               )}
               <p className="mt-1 text-[13px] text-faint">{project.meta}</p>
-              <p className="mt-2 max-w-[520px] text-[14px] leading-relaxed text-soft">
-                {project.body}
-              </p>
+              <ul className="mt-2 max-w-[520px] list-disc space-y-1.5 pl-4 text-[14px] leading-relaxed text-soft">
+                {project.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
             </Entry>
           ))}
         </Section>
