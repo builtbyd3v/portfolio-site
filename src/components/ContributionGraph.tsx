@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { CONTACT } from '../data/content'
 import {
-  calendarYearDays,
   fetchContributions,
   monthLabels,
   weeksFromDays,
@@ -10,7 +9,6 @@ import {
 } from '../lib/github-contributions'
 
 const USER = CONTACT.github.replace(/\/$/, '').split('/').pop() ?? 'builtbyd3v'
-const YEAR = new Date().getFullYear()
 
 function formatCount(n: number) {
   return new Intl.NumberFormat('en-US').format(n)
@@ -37,7 +35,7 @@ export default function ContributionGraph() {
 
   useEffect(() => {
     const controller = new AbortController()
-    fetchContributions(USER, controller.signal, YEAR)
+    fetchContributions(USER, controller.signal)
       .then(setData)
       .catch((err: unknown) => {
         if (controller.signal.aborted) return
@@ -47,10 +45,8 @@ export default function ContributionGraph() {
     return () => controller.abort()
   }, [])
 
-  const yearDays = data ? calendarYearDays(data.contributions, YEAR) : []
-  const weeks = yearDays.length ? weeksFromDays(yearDays) : emptyWeeks()
+  const weeks = data ? weeksFromDays(data.contributions) : emptyWeeks()
   const labels = monthLabels(weeks)
-  const total = yearDays.reduce((sum, day) => sum + day.count, 0)
 
   return (
     <div>
@@ -63,10 +59,10 @@ export default function ContributionGraph() {
               rel="noreferrer"
               className="contrib-link"
             >
-              {formatCount(total)} contributions on GitHub
+              {formatCount(data.total)} contributions on GitHub
               <span aria-hidden="true">↗</span>
             </a>{' '}
-            in {YEAR}.
+            in the last year.
           </>
         ) : error ? (
           <>

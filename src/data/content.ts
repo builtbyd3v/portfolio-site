@@ -11,30 +11,42 @@ export type Project = {
   title: string
   meta: string
   status: string
-  body: string
+  points: string[]
   href?: string
 }
 
 export const projects: Project[] = [
   {
+    title: 'StepSafe (ShellHacks 2026)',
+    meta: 'Swift · ARKit · YOLO11s · TypeScript · Fastify · MongoDB · Next.js · Gemini',
+    status: 'Sep 2026',
+    points: [
+      'Conceived and co-built in 36 hours: a head-mounted iPhone app that uses LiDAR depth and on-device object detection to warn blind and low-vision pedestrians about obstacles, drop-offs, and fast-approaching objects.',
+      'Designed the iOS app and the web community map, and orchestrated AI agents to review every pull request and iterate until each change met our bar.',
+      'Shipped live at stepsafe.miami: a community hazard map backed by an API that merges nearby reports and labels hazards with an LLM.',
+    ],
+    href: 'https://stepsafe.miami',
+  },
+  {
     title: 'samehere',
     meta: 'Next.js · TypeScript · React · PostgreSQL · Supabase · Stripe · Tailwind CSS · Vercel',
     status: 'Jun 2026–Present',
-    body: 'Live student networking app. Auth, stage-labeled feed, public portfolios, realtime DMs, search, and block/report. Postgres and Supabase with RLS. Stripe for Pro. I write the spec, review the diff, and ship the parts I would merge.',
+    points: [
+      'Solo-built and launched a student networking platform (live on Vercel) with auth, a stage-labeled feed, public portfolios, realtime DMs, search, and block/report safety.',
+      'Directed AI agents to build the Supabase backend (Auth, Postgres, Realtime, Storage) with Row Level Security and versioned migrations; reviewed every diff and tested each flow before merging.',
+      'Integrated Stripe Checkout with signature-verified webhooks for a Pro tier.',
+    ],
     href: 'https://samehere.dev',
-  },
-  {
-    title: 'Aced',
-    meta: 'React · TypeScript · Tailwind CSS · Claude API · Vercel',
-    status: 'Mar 2026–Apr 2026',
-    body: 'Mock interviews from a job description. Paste the JD, answer five questions for that role, get scored feedback on each answer.',
-    href: 'https://aced-dev.vercel.app',
   },
   {
     title: 'Sona',
     meta: 'React · Express · Node.js · PostgreSQL',
     status: 'Jul 2026–Aug 2026',
-    body: 'CodePath team project. Six of us shipped a full-stack artist hub for profiles, follows, concerts, and merch. I built artist directory/CRUD and follow/unfollow flows across the React frontend and Express/PostgreSQL API, using GitHub Issues and pull requests.',
+    points: [
+      'Shipped a full-stack artist hub for profiles, follows, concerts, and merch with a 6-person team, using GitHub Issues and pull requests.',
+      'Built the artist API (list with search and genre filters, detail, update, delete) and the React directory and artist pages.',
+      'Built follow/unfollow end to end: a Postgres join table keyed on user and artist, an upsert endpoint, and a React button that updates in place.',
+    ],
   },
 ]
 
@@ -48,11 +60,12 @@ export type Experience = {
 export const experience: Experience[] = [
   {
     org: 'Chipotle Mexican Grill',
-    detail: 'Service Leader, Part Time · Gainesville, FL',
+    detail: 'Service Leader · Gainesville, FL',
     period: 'Jul 2021–Sep 2026',
     points: [
-      'Led high-volume shifts in a customer-facing environment; trained crew on written food-safety and service standards so quality stayed consistent under pressure.',
-      'Tightened station procedures and cut waste 15% while lifting throughput 20% through clearer checklists and faster problem resolution on the line.',
+      'Led closing shifts as manager on duty while covering the work of 3 to 4 positions on lean staffing; trusted to run high-volume stations solo for speed and accuracy.',
+      'Owned morning openings: received and rotated 100+ cases per delivery ($10K to $15K of inventory) in under an hour, reconciled cash, managed catering orders, and led prep before service.',
+      'Trained crew on written food-safety and service standards so quality stayed consistent under pressure.',
     ],
   },
 ]
@@ -68,9 +81,9 @@ export type Education = {
 export const education: Education[] = [
   {
     org: 'Western Governors University',
-    detail: 'B.S. Software Engineering · 4.0 GPA',
-    period: 'Expected Spring 2027',
-    body: 'Competency-based degree. Coursework: Data Structures and Algorithms I, Front-End Web Development, Advanced Software Engineering, Discrete Mathematics I, Calculus I, Technical Communication, Version Control, Introduction to Systems Thinking.',
+    detail: 'B.S. Software Engineering (competency-based, self-paced)',
+    period: 'Expected Fall 2027',
+    body: 'Coursework: Data Structures and Algorithms I, Front-End Web Development, Discrete Mathematics I, Calculus I, Technical Communication, Version Control, Introduction to Systems Thinking.',
   },
   {
     org: 'CodePath',
@@ -96,8 +109,8 @@ export const skills: SkillGroup[] = [
   {
     label: 'Languages',
     items: [
-      { name: 'TypeScript', slug: 'typescript', color: '3178C6' },
       { name: 'JavaScript', slug: 'javascript', color: 'F7DF1E' },
+      { name: 'TypeScript', slug: 'typescript', color: '3178C6' },
       { name: 'Python', slug: 'python', color: '3776AB' },
       { name: 'SQL', slug: 'postgresql', color: '4169E1' },
       { name: 'HTML', slug: 'html5', color: 'E34F26' },
@@ -109,18 +122,27 @@ export const skills: SkillGroup[] = [
     items: [
       { name: 'React', slug: 'react', color: '61DAFB' },
       { name: 'Next.js', slug: 'nextdotjs', color: '000000' },
+      { name: 'Express', slug: 'express', color: '000000' },
       { name: 'Tailwind CSS', slug: 'tailwindcss', color: '06B6D4' },
+    ],
+  },
+  {
+    label: 'AI Development',
+    items: [
+      { name: 'Claude Code', slug: 'claude', color: 'D97757' },
+      { name: 'Cursor', slug: 'cursor', color: '000000' },
+      { name: 'Grok Bot', icon: '/icons/grok-bot.svg' },
+      { name: 'LLM APIs' },
     ],
   },
   {
     label: 'Tools',
     items: [
       { name: 'Git', slug: 'git', color: 'F05032' },
+      { name: 'GitHub', slug: 'github', color: '181717' },
       { name: 'PostgreSQL', slug: 'postgresql', color: '4169E1' },
       { name: 'Supabase', slug: 'supabase', color: '3FCF8E' },
       { name: 'Vercel', slug: 'vercel', color: '000000' },
-      { name: 'Claude Code', slug: 'claude', color: 'D97757' },
-      { name: 'Cursor', slug: 'cursor', color: '000000' },
     ],
   },
 ]
