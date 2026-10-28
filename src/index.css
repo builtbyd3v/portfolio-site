@@ -415,7 +415,8 @@ body {
   object-fit: cover;
 }
 
-.shot-video iframe {
+.shot-video iframe,
+.shot-video video {
   display: block;
   width: 100%;
   height: 100%;

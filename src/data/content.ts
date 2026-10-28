@@ -22,6 +22,8 @@ export type Media = {
   href?: string
   caption: string
   youtube?: string
+  // Self-hosted video file; src is its poster.
+  video?: string
   // Animated version, shown only when the visitor allows motion.
   motion?: string
 }
@@ -92,12 +94,12 @@ export const projects: Project[] = [
       { name: 'Apple Wallet', slug: 'apple' },
     ],
     media: {
-      src: '/projects/samehere.jpg',
-      width: 1200,
-      height: 750,
-      alt: 'samehere.dev landing page: Find your team before kickoff, above a sample profile card',
-      href: 'https://samehere.dev',
-      caption: 'The landing page',
+      src: '/projects/samehere-demo.jpg',
+      width: 1280,
+      height: 720,
+      alt: 'samehere.dev demo: a profile card next to Devpost and GitHub stats',
+      video: '/projects/samehere-demo.mp4',
+      caption: 'Demo video',
     },
     points: [
       'Solo-building a profile site where CS students find hackathon teammates; every stat is counted from real data (Devpost-verified prizes, shipped projects, GitHub contributions), never typed in.',

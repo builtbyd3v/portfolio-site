@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import type { Media } from '../data/content'
 
-// Shows the thumbnail first; a video loads YouTube's player in place only after a click.
+// Shows the thumbnail first; a video loads its player in place only after a click.
 export default function ProjectMedia({ media, title }: { media: Media; title: string }) {
   const [playing, setPlaying] = useState(false)
+  const isVideo = Boolean(media.youtube || media.video)
 
   const picture = (
     <picture>
@@ -23,15 +24,26 @@ export default function ProjectMedia({ media, title }: { media: Media; title: st
 
   return (
     <figure className="m-0">
-      {media.youtube ? (
+      {isVideo ? (
         playing ? (
           <div className="shot shot-video">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${media.youtube}?autoplay=1&rel=0&playsinline=1`}
-              title={`${title} demo video`}
-              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-              allowFullScreen
-            />
+            {media.video ? (
+              <video
+                src={media.video}
+                poster={media.src}
+                title={`${title} demo video`}
+                controls
+                autoPlay
+                playsInline
+              />
+            ) : (
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${media.youtube}?autoplay=1&rel=0&playsinline=1`}
+                title={`${title} demo video`}
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                allowFullScreen
+              />
+            )}
           </div>
         ) : (
           <button
