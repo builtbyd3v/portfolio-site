@@ -140,6 +140,24 @@ export function currentStreak(days: ContributionDay[]): number {
   return streak
 }
 
+export function longestStreak(days: ContributionDay[]): number {
+  let best = 0
+  let run = 0
+  for (const day of days) {
+    run = day.count > 0 ? run + 1 : 0
+    best = Math.max(best, run)
+  }
+  return best
+}
+
+export function bestDay(days: ContributionDay[]): ContributionDay | null {
+  let best: ContributionDay | null = null
+  for (const day of days) {
+    if (day.count > (best?.count ?? 0)) best = day
+  }
+  return best
+}
+
 export function weeksFromDays(days: ContributionDay[]): (ContributionDay | null)[][] {
   const weeks: (ContributionDay | null)[][] = []
   let week: (ContributionDay | null)[] = []
@@ -194,5 +212,9 @@ export function monthLabels(weeks: (ContributionDay | null)[][]) {
     }
   })
 
+  // A partial first month sits too close to the next label and overlaps it.
+  if (labels.length > 1 && labels[1].weekIndex - labels[0].weekIndex < 3) {
+    labels.shift()
+  }
   return labels
 }
