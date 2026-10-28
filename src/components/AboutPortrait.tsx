@@ -16,8 +16,8 @@ export default function AboutPortrait() {
     >
       <span className="about-portrait-motion">
         <img
-          src="/cat.jpg"
-          alt="Personal mark of a blurry gray cat raising one paw."
+          src="/avatar.jpg"
+          alt="Profile picture: a white-haired anime character in black glasses with a red bow."
         />
       </span>
     </button>
