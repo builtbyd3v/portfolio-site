@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import { CONTACT } from '../data/content'
 import {
+  bestDay,
   fetchContributions,
+  longestStreak,
   monthLabels,
   weeksFromDays,
   type ContributionData,
@@ -14,15 +16,16 @@ function formatCount(n: number) {
   return new Intl.NumberFormat('en-US').format(n)
 }
 
+function prettyDate(date: string) {
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(
+    new Date(`${date}T00:00:00`),
+  )
+}
+
 function dayLabel(day: ContributionDay) {
-  const pretty = new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date(`${day.date}T00:00:00`))
-  if (day.count === 0) return `No contributions on ${pretty}`
+  if (day.count === 0) return `No contributions on ${prettyDate(day.date)}`
   const noun = day.count === 1 ? 'contribution' : 'contributions'
-  return `${formatCount(day.count)} ${noun} on ${pretty}`
+  return `${formatCount(day.count)} ${noun} on ${prettyDate(day.date)}`
 }
 
 function emptyWeeks() {
@@ -32,6 +35,9 @@ function emptyWeeks() {
 export default function ContributionGraph() {
   const [data, setData] = useState<ContributionData | null>(null)
   const [error, setError] = useState(false)
+  const [seen, setSeen] = useState(false)
+  const gridRef = useRef<HTMLDivElement>(null)
+  const tipRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -45,47 +51,103 @@ export default function ContributionGraph() {
     return () => controller.abort()
   }, [])
 
+  // Starts the fill-in wave the first time the grid scrolls into view.
+  useEffect(() => {
+    const el = gridRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        setSeen(true)
+        observer.disconnect()
+      },
+      { threshold: 0.35 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   const weeks = data ? weeksFromDays(data.contributions) : emptyWeeks()
   const labels = monthLabels(weeks)
+  const best = data ? bestDay(data.contributions) : null
+
+  function showTip(event: PointerEvent<HTMLDivElement>) {
+    const tip = tipRef.current
+    if (!tip) return
+    const cell =
+      event.target instanceof HTMLElement
+        ? event.target.closest<HTMLElement>('[data-label]')
+        : null
+    if (!cell) {
+      tip.hidden = true
+      return
+    }
+    const box = event.currentTarget.getBoundingClientRect()
+    const rect = cell.getBoundingClientRect()
+    const x = rect.left - box.left + rect.width / 2
+    tip.textContent = cell.dataset.label ?? ''
+    tip.hidden = false
+    tip.style.left = `${Math.min(Math.max(x, 90), box.width - 90)}px`
+    tip.style.top = `${rect.top - box.top}px`
+  }
+
+  function hideTip() {
+    if (tipRef.current) tipRef.current.hidden = true
+  }
 
   return (
-    <div>
-      <p className="text-[14px] text-soft">
-        {data ? (
-          <>
-            <a
-              href={CONTACT.github}
-              target="_blank"
-              rel="noreferrer"
-              className="contrib-link"
-            >
-              {formatCount(data.total)} contributions on GitHub
-              <span aria-hidden="true">↗</span>
-            </a>{' '}
-            in the last year.
-          </>
-        ) : error ? (
-          <>
-            Could not load the live graph.{' '}
-            <a
-              href={CONTACT.github}
-              target="_blank"
-              rel="noreferrer"
-              className="text-link"
-            >
-              GitHub
-            </a>
-          </>
-        ) : (
-          'Loading contributions…'
-        )}
-      </p>
+    <div className="sheet contrib">
+      {data ? (
+        <dl className="contrib-stats">
+          <div>
+            <dt>Contributions, last year</dt>
+            <dd>
+              <a className="link" href={CONTACT.github} target="_blank" rel="noreferrer">
+                {formatCount(data.total)}
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt>Longest streak</dt>
+            <dd>{longestStreak(data.contributions)} days</dd>
+          </div>
+          {best ? (
+            <div>
+              <dt>Best day, {prettyDate(best.date)}</dt>
+              <dd>{formatCount(best.count)}</dd>
+            </div>
+          ) : null}
+        </dl>
+      ) : (
+        <p className="text-[15px] text-ink-2">
+          {error ? (
+            <>
+              Could not load the live graph. See it on{' '}
+              <a className="link" href={CONTACT.github} target="_blank" rel="noreferrer">
+                GitHub
+              </a>
+              .
+            </>
+          ) : (
+            'Loading contributions…'
+          )}
+        </p>
+      )}
 
       <div
-        className="contrib-grid"
+        ref={gridRef}
+        className={`contrib-grid${seen && data ? ' is-live' : ''}`}
         style={{ ['--weeks' as string]: String(weeks.length) }}
+        role="img"
+        aria-label={
+          data
+            ? `GitHub contribution heatmap: ${formatCount(data.total)} contributions in the last year.`
+            : 'GitHub contribution heatmap, loading.'
+        }
+        onPointerOver={showTip}
+        onPointerLeave={hideTip}
       >
-        <div className="contrib-months">
+        <div className="contrib-months" aria-hidden="true">
           {labels.map((label) => (
             <span
               key={`${label.label}-${label.weekIndex}`}
@@ -95,14 +157,14 @@ export default function ContributionGraph() {
             </span>
           ))}
         </div>
-        <div className="contrib-weeks">
+        <div className="contrib-weeks" aria-hidden="true">
           {weeks.map((week, wi) => (
-            <div key={wi} className="contrib-week">
+            <div key={wi} className="contrib-week" style={{ ['--wi' as string]: String(wi) }}>
               {week.map((day, di) =>
                 day ? (
                   <span
                     key={day.date}
-                    title={dayLabel(day)}
+                    data-label={dayLabel(day)}
                     className={`contrib-day is-l${day.level}`}
                   />
                 ) : (
@@ -112,6 +174,7 @@ export default function ContributionGraph() {
             </div>
           ))}
         </div>
+        <div ref={tipRef} className="contrib-tip" hidden />
       </div>
     </div>
   )

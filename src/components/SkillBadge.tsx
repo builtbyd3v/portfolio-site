@@ -1,32 +1,16 @@
 import type { Skill } from '../data/content'
 
-function iconColor(color?: string): string {
-  if (!color) return '111111'
-  const hex = color.replace('#', '').toLowerCase()
-  if (hex === 'ffffff' || hex === 'fff') return '111111'
-  return hex
-}
-
+// Official logos from Simple Icons, masked so they draw in the sheet's ink.
 export default function SkillBadge({ skill }: { skill: Skill }) {
-  const src =
-    skill.icon ??
-    (skill.slug
-      ? `https://cdn.simpleicons.org/${skill.slug}/${iconColor(skill.color)}`
-      : null)
-
   return (
-    <span className="skill-badge">
-      {src && (
-        <img
-          src={src}
-          alt=""
-          className="h-4 w-4"
-          loading="lazy"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
+    <span className="chip">
+      {skill.slug ? (
+        <span
+          className="chip-icon"
+          aria-hidden="true"
+          style={{ ['--icon' as string]: `url(https://cdn.simpleicons.org/${skill.slug})` }}
         />
-      )}
+      ) : null}
       {skill.name}
     </span>
   )
