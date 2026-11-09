@@ -268,6 +268,15 @@ body {
   aspect-ratio: 1;
 }
 
+.portrait [data-slot] > img {
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+.portrait [data-slot]::before {
+  content: none;
+}
+
 /* The print develops: the sheet's darkest blue lifts off the portrait once. */
 .portrait [data-slot]::after {
   content: '';
