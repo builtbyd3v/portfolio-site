@@ -29,7 +29,7 @@ export default function Hero() {
           <div data-slot="portrait">
             <img
               src="/avatar.jpg"
-              alt="Dev's profile picture, printed as a cyanotype"
+              alt="Portrait of Dev Goswami"
               width={474}
               height={474}
             />
